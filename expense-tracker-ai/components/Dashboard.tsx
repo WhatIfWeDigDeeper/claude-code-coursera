@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { Expense } from '@/types';
-import { calculateSummaryStats, formatCurrency, exportToCSV } from '@/lib/utils';
+import { calculateSummaryStats, formatCurrency } from '@/lib/utils';
+import ExportModal from './ExportModal';
 
 interface DashboardProps {
   expenses: Expense[];
@@ -9,14 +11,7 @@ interface DashboardProps {
 
 export default function Dashboard({ expenses }: DashboardProps) {
   const stats = calculateSummaryStats(expenses);
-
-  const handleExport = () => {
-    if (expenses.length === 0) {
-      alert('No expenses to export');
-      return;
-    }
-    exportToCSV(expenses);
-  };
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -61,12 +56,12 @@ export default function Dashboard({ expenses }: DashboardProps) {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Spending by Category</h2>
           <button
-            onClick={handleExport}
+            onClick={() => setIsExportModalOpen(true)}
             disabled={expenses.length === 0}
             className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             <span>📥</span>
-            Export CSV
+            Export Data
           </button>
         </div>
 
@@ -103,6 +98,13 @@ export default function Dashboard({ expenses }: DashboardProps) {
           </div>
         )}
       </div>
+
+      {/* Export Modal */}
+      <ExportModal
+        expenses={expenses}
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+      />
     </div>
   );
 }
