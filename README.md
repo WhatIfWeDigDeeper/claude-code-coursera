@@ -8,6 +8,10 @@
   - [AI Labor: Claude Code is an AI Development Team](#ai-labor-claude-code-is-an-ai-development-team)
   - [The Best of N Pattern: Leverage AI Labor Cost Advantages](#the-best-of-n-pattern-leverage-ai-labor-cost-advantages)
     - [Sample alternative implementation](#sample-alternative-implementation)
+- [Module 3 Generation AI, Claude Code, \& Code Quality](#module-3-generation-ai-claude-code--code-quality)
+  - [Can AI Judge Code Quality?](#can-ai-judge-code-quality)
+  - [Why Code Evaluation Matters for AI Development](#why-code-evaluation-matters-for-ai-development)
+    - [Sample Prompt for evaluating three different implementations](#sample-prompt-for-evaluating-three-different-implementations)
 
 
 ## Module 1 Scaling Up Software Engineering with Claude Code & Generative AI
@@ -190,3 +194,91 @@ PROCESS:
 Show me what's possible with a more sophisticated approach. Be creative!
 ```
 
+## Module 3 Generation AI, Claude Code, & Code Quality
+
+### Can AI Judge Code Quality?
+
+```text
+Write a 20-line Python function that can store data it receives as JSON. Create a table to score the coding solutions across a number of important dimensions.
+```
+
+"Context is everything"
+
+Need contextual information.
+
+```text
+By the way, this is for a system that does historical logging and we need to make sure that we capture everything.
+Project best practices:
+1. Always throw exceptions
+2. timing is critical
+```
+
+We can ask it to self-evaluate and improve its code. Build up context so it can build code that is relevant for your project.
+
+Specify rubric and set standards that LLMs aren't always consistent with so it can introspect its own code and refactor it to meet expectations and quality standards.
+
+### Why Code Evaluation Matters for AI Development
+
+Traditional vs. AI Development Evaluation
+
+Traditional Development:
+
+- Evaluate one solution against theoretical alternatives
+- Make decisions based on experience and intuition
+- Limited ability to test different approaches
+- High cost to change direction
+
+AI Development:
+
+- Evaluate multiple working implementations
+- Compare real code, not theoretical approaches
+- Test actual user experiences side-by-side
+- Make data-driven decisions about architecture
+
+#### Sample Prompt for evaluating three different implementations
+
+```text
+I have three different implementations of data export functionality across three git branches in my expense tracker application. I want to create a systematic evaluation framework to compare them thoroughly.
+
+BACKGROUND:
+- feature-data-export-v1: Simple CSV export (one-button approach)
+- feature-data-export-v2: Advanced export with multiple formats and filtering options
+- feature-data-export-v3: Cloud integration with sharing and collaboration features
+
+Now I want you to systematically analyze each of three features implementations by switching between branches and examining the code, architecture, and implementation details.
+
+ANALYSIS PROCESS:
+For each branch (v1, v2, v3), please:
+
+1. Switch to the branch
+2. Examine all the files that were created or modified
+3. Analyze the code architecture and patterns used
+4. Look at component structure and organization
+5. Review the user interface implementation
+6. Check for error handling and edge cases
+7. Assess the technical approach and libraries used
+
+DOCUMENTATION:
+Create a file called "code-analysis.md" with detailed findings for each version:
+
+**For Each Version, Document:**
+- Files created/modified (list them)
+- Code architecture overview (how is it organized?)
+- Key components and their responsibilities
+- Libraries and dependencies used
+- Implementation patterns and approaches
+- Code complexity assessment
+- Error handling approach
+- Security considerations
+- Performance implications
+- Extensibility and maintainability factors
+
+**Technical Deep Dive:**
+- How does the export functionality work technically?
+- What file generation approach is used?
+- How is user interaction handled?
+- What state management patterns are used?
+- How are edge cases handled?
+
+Be thorough and technical - this analysis will inform our decision about which approach to adopt or how to combine them.
+```
