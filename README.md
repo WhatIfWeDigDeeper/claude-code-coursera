@@ -43,10 +43,12 @@ With the model of giving individual tasks like create a function in this file, t
 ### Exercise: Getting Started with Claude Code & Building Your First Application
 
 ```text
-I want you to create a modern, professional NextJS expense tracking application. Here's my vision:
+I want you to create a modern, professional NextJS expense tracking application.
+Here's my vision:
 
 APPLICATION OVERVIEW:
-Build a complete expense tracking web app that helps users manage their personal finances. The app should feel modern, intuitive, and professional.
+Build a complete expense tracking web app that helps users manage their personal finances.
+The app should feel modern, intuitive, and professional.
 
 CORE FEATURES:
 - Add expenses with date, amount, category, and description
@@ -81,9 +83,14 @@ SPECIFIC FUNCTIONALITY:
 - Export functionality (at least CSV)
 - Delete and edit existing expenses
 
-Please create this as a complete, production-ready application. Set up the project structure, implement all features, and make sure everything works together seamlessly. Focus on creating something that looks professional and that I could actually use to track my expenses.
+Please create this as a complete, production-ready application.
+Set up the project structure, implement all features,
+and make sure everything works together seamlessly.
+Focus on creating something that looks professional
+and that I could actually use to track my expenses.
 
-When you're done, provide instructions on how to run the application and test all features.
+When you're done, provide instructions on
+how to run the application and test all features.
 ```
 
 "AI as labor, Not Just a Tool"
@@ -99,13 +106,17 @@ large Prompts allow AI to scale
 AI leader writes prompts like this
 
 ```text
-Look at this list of expenses. How could we make it incredibly bold, beautiful, and modern? Blow my mind with the elegance, simplicity, and beauty of your user interface design changes.
+Look at this list of expenses.
+How could we make it incredibly bold, beautiful, and modern?
+Blow my mind with the elegance, simplicity,
+and beauty of your user interface design changes.
 ```
 
 "You challenge the AI. You give it big tasks."
 
 ```text
-The user interface isn't consistent. Could you make everything match the style of the list of expenses?
+The user interface isn't consistent.
+Could you make everything match the style of the list of expenses?
 ```
 
 Tell it to figure it out. Give it bold challenges.
@@ -121,7 +132,10 @@ A human is still important part of the architecture and design.
 "We want to use the scalability, speed, and ego-less nature of AI Labor to do more than before at a higher level of quality"
 
 ```text
-that was awesome. Can you go back to the prior branch and repeat this process, but solve the underlying problem in a different and wildly valuable way? Surprise me with your creativity.
+that was awesome.
+Can you go back to the prior branch and repeat this process,
+but solve the underlying problem in a different and wildly valuable way?
+Surprise me with your creativity.
 ```
 
 - Explore different solutions. "Implement 10 versions of that application or 10 versions of that feature". It's not biased by what it did before.Can cherry pick from different branch or add a feature it thought of.
@@ -161,7 +175,8 @@ Why This Works
 #### Sample alternative implementation
 
 ```text
-I want you implement the existing ("Export CSV" button) data export feature in a completely different way.
+I want you implement the existing ("Export CSV" button)
+data export feature in a completely different way.
 
 VERSION CONTROL:
 - Create a new branch called "feature-data-export-v2"
@@ -180,7 +195,9 @@ Implement an ADVANCED export system with these features:
 - Loading states during export process
 
 IMPLEMENTATION APPROACH:
-This version should feel like a professional business application export feature. Think about what a power user would want - lots of control and options. Use a modal or drawer interface, not just a simple button.
+This version should feel like a professional business application export feature.
+Think about what a power user would want - lots of control and options.
+Use a modal or drawer interface, not just a simple button.
 
 Make this implementation completely different from Version 1:
 - Different UI components and patterns
@@ -203,7 +220,8 @@ Show me what's possible with a more sophisticated approach. Be creative!
 ### Can AI Judge Code Quality?
 
 ```text
-Write a 20-line Python function that can store data it receives as JSON. Create a table to score the coding solutions across a number of important dimensions.
+Write a 20-line Python function that can store data it receives as JSON.
+Create a table to score the coding solutions across a number of important dimensions.
 ```
 
 "Context is everything"
@@ -211,7 +229,9 @@ Write a 20-line Python function that can store data it receives as JSON. Create 
 Need contextual information.
 
 ```text
-By the way, this is for a system that does historical logging and we need to make sure that we capture everything.
+By the way, this is for a system that does historical logging
+and we need to make sure that we capture everything.
+
 Project best practices:
 1. Always throw exceptions
 2. timing is critical
@@ -242,14 +262,18 @@ AI Development:
 #### Sample Prompt for evaluating three different implementations
 
 ```text
-I have three different implementations of data export functionality across three git branches in my expense tracker application. I want to create a systematic evaluation framework to compare them thoroughly.
+I have three different implementations of data export functionality
+across three git branches in my expense tracker application.
+I want to create a systematic evaluation framework to compare them thoroughly.
 
 BACKGROUND:
 - feature-data-export-v1: Simple CSV export (one-button approach)
 - feature-data-export-v2: Advanced export with multiple formats and filtering options
 - feature-data-export-v3: Cloud integration with sharing and collaboration features
 
-Now I want you to systematically analyze each of three features implementations by switching between branches and examining the code, architecture, and implementation details.
+Now I want you to systematically analyze each of three features implementations
+by switching between branches and examining
+the code, architecture, and implementation details.
 
 ANALYSIS PROCESS:
 For each branch (v1, v2, v3), please:
@@ -284,14 +308,20 @@ Create a file called "code-analysis.md" with detailed findings for each version:
 - What state management patterns are used?
 - How are edge cases handled?
 
-Be thorough and technical - this analysis will inform our decision about which approach to adopt or how to combine them.
+Be thorough and technical -
+this analysis will inform our decision about which approach to adopt
+or how to combine them.
 ```
 
 ### Does AI Labor Understand Design Principles?
 
-SOLID design principles - do not need to specify them in detail as it would have been in training data so highly token efficient to just say follow SOLID principles.
+SOLID design principles - do not need to specify them in detail
+as it would have been in training data so highly token efficient
+to just say follow SOLID principles.
 
-It can write quality code if we give it sufficient context, how we judge quality, what we are looking for, and the design principles we want it to follow.
+It can write quality code if we give it sufficient context,
+how we judge quality, what we are looking for,
+and the design principles we want it to follow.
 
 ### Chat, Craft, Scale: Spend More Time Designing & Innovating
 
@@ -299,7 +329,9 @@ Pay attention to architecture, not specific lines of code.
 
 #### Chat - thinking about the requirements
 
-Thinking through all the design dimensions. Really important to send Claude agents off with the right design in mind.
+Thinking through all the design dimensions.
+Really important to send Claude agents off
+with the right design in mind.
 
 ```text
 Let's design the requirements for x with this goal.
@@ -315,7 +347,9 @@ Let's design the feature A. Propose three designs based on ...
 Follow up as a part of a gap analysis
 
 ```text
-With this design, what use cases would be hard to support? What friction might it cause. Poke some holes in it.
+With this design, what use cases would be hard to support?
+What friction might it cause.
+Poke some holes in it.
 
 samples...
 ```
@@ -323,7 +357,10 @@ samples...
 Often find what's missing when using something, like a new API. We can use the persona pattern.
 
 ```text
-Act as a first API. I will type in pseudo-http requests and you will respond with an http response like the server would. Show me some sample HTTP requests I can send you.
+Act as a first API.
+I will type in pseudo-http requests and you will respond
+with an http response like the server would.
+Show me some sample HTTP requests I can send you.
 ```
 
 Haven't built any code, no mocking. LLM is taking on the persona and it simulates the API. Persona pattern is the Super Mock
@@ -337,7 +374,8 @@ Take the time and really explore the design before sending Agents to create a bu
 Stucture folders, configure, deploy. What the ergonomics of what I would like to use.
 
 ```text
-Design three different fluent clients in JavaScript for interacting with the API.
+Design three different fluent clients in JavaScript
+for interacting with the API.
 Only show me the interface usage through examples.
 ```
 
@@ -346,7 +384,8 @@ Have Claude create the prompt after you've chosen a design.
 ```text
 I like version 1 of all the design aspects.
 
-Now, write a complete prompt that I can cut/paste into Claude Code to get it to implement this.
+Now, write a complete prompt that I can cut/paste into Claude Code
+to get it to implement this.
 ```
 
 This generates a huge prompt, but often get better results by segmenting it into a series of iterative prompts.
@@ -365,7 +404,8 @@ More details
 ```text
 Let's think of library options for this step.
 Let's also think of detailed implementation details,
-coding conventions, package structure, other that we need to decide now.
+coding conventions, package structure,
+other that we need to decide now.
 
 What are the key decisions?
 ```
