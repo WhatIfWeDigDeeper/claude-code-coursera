@@ -68,3 +68,5 @@ Please create this as a complete, production-ready application. Set up the proje
 
 When you're done, provide instructions on how to run the application and test all features.
 ```
+
+"AI as labor, Not Just a Tool"
