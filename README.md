@@ -1,6 +1,15 @@
 # claude-code-coursera
 [Notes for Coursera course "Claude Code: Software Engineering with Generative AI Agents"](https://www.coursera.org/learn/claude-code/home/welcome)
 
+- [Module 1 Scaling Up Software Engineering with Claude Code \& Generative AI](#module-1-scaling-up-software-engineering-with-claude-code--generative-ai)
+  - [1000X Improvement in Software Engineering Productivity with Big Prompts](#1000x-improvement-in-software-engineering-productivity-with-big-prompts)
+  - [Exercise: Getting Started with Claude Code \& Building Your First Application](#exercise-getting-started-with-claude-code--building-your-first-application)
+- [Module 2 Leveraging the Software Engineering Advantages of Claude Code](#module-2-leveraging-the-software-engineering-advantages-of-claude-code)
+  - [AI Labor: Claude Code is an AI Development Team](#ai-labor-claude-code-is-an-ai-development-team)
+  - [The Best of N Pattern: Leverage AI Labor Cost Advantages](#the-best-of-n-pattern-leverage-ai-labor-cost-advantages)
+    - [Sample alternative implementation](#sample-alternative-implementation)
+
+
 ## Module 1 Scaling Up Software Engineering with Claude Code & Generative AI
 
 Like having a team of 100 or 1,000 developers
