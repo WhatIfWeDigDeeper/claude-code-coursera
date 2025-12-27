@@ -1,6 +1,7 @@
 # Module 4 Building Process & Context in Claude Code
 
-[Home](README.md) | [← Previous: Module 3](module-3.md)
+[Home](README.md) | [← Previous: Module 3](module-3.md) | [Next: Module 5 →](module-5.md)
+
 
 ---
 
@@ -381,4 +382,4 @@ describe('{Endpoint Name} API', () => {
 
 ---
 
-[Home](README.md) | [← Previous: Module 3](module-3.md)
+[Home](README.md) | [← Previous: Module 3](module-3.md) | [Next: Module 5 →](module-5.md)
