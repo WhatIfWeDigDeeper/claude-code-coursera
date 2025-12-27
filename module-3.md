@@ -4,8 +4,6 @@
 
 ---
 
-## Table of Contents
-
 - [Can AI Judge Code Quality?](#can-ai-judge-code-quality)
 - [Why Code Evaluation Matters for AI Development](#why-code-evaluation-matters-for-ai-development)
   - [Sample Prompt for evaluating three different implementations](#sample-prompt-for-evaluating-three-different-implementations)

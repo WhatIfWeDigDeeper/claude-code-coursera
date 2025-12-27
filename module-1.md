@@ -4,8 +4,6 @@
 
 ---
 
-## Table of Contents
-
 - [1000X Improvement in Software Engineering Productivity with Big Prompts](#1000x-improvement-in-software-engineering-productivity-with-big-prompts)
 - [Exercise: Getting Started with Claude Code \& Building Your First Application](#exercise-getting-started-with-claude-code--building-your-first-application)
 

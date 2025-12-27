@@ -4,8 +4,6 @@
 
 ---
 
-## Table of Contents
-
 - [AI Labor: Claude Code is an AI Development Team](#ai-labor-claude-code-is-an-ai-development-team)
 - [The Best of N Pattern: Leverage AI Labor Cost Advantages](#the-best-of-n-pattern-leverage-ai-labor-cost-advantages)
   - [Sample alternative implementation](#sample-alternative-implementation)

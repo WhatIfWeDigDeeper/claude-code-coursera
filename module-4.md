@@ -4,12 +4,12 @@
 
 ---
 
-## Table of Contents
-
 - [Global Persistent Context: `CLAUDE.md`](#global-persistent-context-claudemd)
 - [Writing CLAUDE.md Files](#writing-claudemd-files)
 - [Reusable Targeted Context \& Process: Claude Code Commands](#reusable-targeted-context--process-claude-code-commands)
 - [Creating Claude Commands](#creating-claude-commands)
+- [In-Context Learning: Teaching with Examples](#in-context-learning-teaching-with-examples)
+- [Exercise: Building a Documentation Generator](#exercise-building-a-documentation-generator)
 
 ---
 
@@ -369,6 +369,15 @@ describe('{Endpoint Name} API', () => {
 ```
 
 </details>
+
+## In-Context Learning: Teaching with Examples
+
+> ...one of the most important and powerful things that we do is we teach through example. We show examples of good code, what we want things to look like. We don't necessarily explain every last detail of why that's beautiful code or why it's what we want, but we show lots of great examples.
+
+## Exercise: Building a Documentation Generator
+
+
+
 
 ---
 
