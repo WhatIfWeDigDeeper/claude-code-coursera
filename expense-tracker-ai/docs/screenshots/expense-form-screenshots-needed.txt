@@ -1,0 +1,95 @@
+Screenshots needed for Expense Form user documentation:
+
+1. expense-form-location.png
+   - Show: Main app interface with "Add Expense" tab highlighted
+   - Highlight: Navigation tabs at top with "Add Expense" tab active
+   - Context: First thing users see to find the form
+
+2. expense-form-date.png
+   - Show: Date picker field in focus with calendar dropdown (if available)
+   - Highlight: Date input field with today's date pre-filled
+   - Context: How to select a date for the expense
+
+3. expense-form-amount.png
+   - Show: Amount field with example value (e.g., "45.99")
+   - Highlight: Amount input field
+   - Context: Proper format for entering amounts (no $ symbol)
+
+4. expense-form-category.png
+   - Show: Category dropdown menu expanded showing all 6 options
+   - Highlight: The dropdown list (Food, Transport, Entertainment, Utilities, Healthcare, Other)
+   - Context: All available category choices
+
+5. expense-form-description.png
+   - Show: Description field with example text (e.g., "Lunch at Chipotle")
+   - Highlight: Description text area
+   - Context: How to write a useful description
+
+6. expense-form-save.png
+   - Show: Complete form with all fields filled and "Add Expense" button
+   - Highlight: The blue "Add Expense" button
+   - Context: Final step to save the expense
+
+7. expense-form-edit-button.png
+   - Show: Expense List with multiple expenses, focus on one expense's Edit button
+   - Highlight: Blue "Edit" button next to an expense
+   - Context: How to enter edit mode from the expense list
+
+8. expense-form-edit-mode.png
+   - Show: Form in edit mode with pre-filled data from existing expense
+   - Highlight: "Update Expense" button and "Cancel" button
+   - Context: What edit mode looks like vs. add mode
+
+9. expense-form-lunch-example.png
+   - Show: Completed form for lunch scenario (date: today, amount: 12.50, category: Food, description: "Lunch at Chipotle")
+   - Highlight: The filled form before clicking "Add Expense"
+   - Context: Real-world example of adding daily expense
+
+10. expense-form-edit-correction.png
+    - Show: Split screen or before/after showing wrong amount ($150) being corrected to $15
+    - Highlight: The amount field change
+    - Context: How editing fixes mistakes
+
+11. expense-form-validation-error.png
+    - Show: Form with validation errors displayed (red error messages)
+    - Highlight: Error messages below fields (e.g., "Amount must be greater than 0")
+    - Context: What validation errors look like
+
+12. expense-form-dark-mode.png
+    - Show: Same form in dark mode
+    - Highlight: Form styling in dark theme
+    - Context: Dark mode variant for comparison
+
+Additional screenshots for comprehensive coverage:
+
+13. expense-form-mobile-view.png
+    - Show: Form on mobile device or narrow viewport
+    - Highlight: Responsive layout on smaller screens
+    - Context: Mobile user experience
+
+14. expense-form-keyboard-focus.png
+    - Show: Form with keyboard focus indicators visible (Tab navigation)
+    - Highlight: Blue focus outline on active field
+    - Context: Accessibility and keyboard navigation
+
+15. expense-form-empty-state.png
+    - Show: Completely empty form (default state)
+    - Highlight: Default values (today's date, empty amount/description, Food category)
+    - Context: What users see on first load
+
+Notes for screenshot capture:
+- Use consistent browser window size
+- Capture in both light and dark modes where applicable
+- Ensure UI is clean (no personal data, realistic examples)
+- Use high resolution (at least 1920x1080 for desktop views)
+- Include browser chrome if showing full app context
+- Crop tightly if showing specific components
+- Use annotation tools to highlight specific elements (arrows, boxes)
+- Save in PNG format for quality
+- Consider animated GIFs for multi-step processes
+
+Recommended tools:
+- macOS: Cmd+Shift+4 for screenshots, Skitch for annotations
+- Windows: Snipping Tool or Snip & Sketch
+- Browser: Browser DevTools for responsive screenshots
+- Annotation: Snagit, Greenshot, or built-in markup tools
