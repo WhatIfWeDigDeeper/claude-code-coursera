@@ -1,4 +1,5 @@
 # claude-code-coursera
+
 [Notes for Coursera course "Claude Code: Software Engineering with Generative AI Agents"](https://www.coursera.org/learn/claude-code/home/welcome)
 
 - [Module 1 Scaling Up Software Engineering with Claude Code \& Generative AI](#module-1-scaling-up-software-engineering-with-claude-code--generative-ai)
@@ -19,6 +20,8 @@
 - [Module 4 Building Process \& Context in Claude Code](#module-4-building-process--context-in-claude-code)
   - [Global Persistent Context: `CLAUDE.md`](#global-persistent-context-claudemd)
   - [Writing CLAUDE.md Files](#writing-claudemd-files)
+  - [Reusable Targeted Context \& Process: Claude Code Commands](#reusable-targeted-context--process-claude-code-commands)
+  - [Creating Claude Commands](#creating-claude-commands)
 
 
 ## Module 1 Scaling Up Software Engineering with Claude Code & Generative AI
@@ -693,4 +696,91 @@ Use this acronym to remember the key principles:
 - Regular maintenance and dependency updates
 - Responsive to community feedback and issues
 ```
+</details>
+
+> The goal is to scale your AI development labor by providing the right context at the right level - enough specificity to get what you want, but not so much constraint that it can't innovate within your boundaries.
+
+### Reusable Targeted Context & Process: Claude Code Commands
+
+Repeat something over and over in the same way with important context. Can add command.md files.
+
+`.claude/commands/code_review.md`
+
+Can use `$ARGUMENTS` and templates, like `<file_name>.review.md`.
+
+Reusable prompts with targeted context piped in and targeted process.
+
+Ask Claude to look at project and generate useful commands.
+
+### [Creating Claude Commands](https://www.coursera.org/learn/claude-code/supplement/xLRqn/creating-claude-commands)
+
+> Commands transform Claude Code from a general assistant into a specialized team member with deep knowledge of your specific workflows. They ensure consistent, high-quality execution of repetitive tasks while providing the targeted context needed for complex operations.
+
+> The TARGETED Framework for Command Design
+Use this acronym to create effective commands:
+
+* Task-Specific Instructions
+* Arguments and Placeholders
+* Reusable Process Steps
+* Guided Examples and References
+* Explicit Output Requirements
+* Template-Based Naming
+* Error Handling and Edge Cases
+* Documentation and Context
+
+<details>
+<summary>Example 2: API Test</summary>
+
+File: `.claude/commands/api-test`
+
+```md
+# API Testing Command
+
+Create comprehensive API tests for: $ARGUMENTS
+
+## Testing Strategy
+Test the following API endpoints and scenarios based on $ARGUMENTS:
+
+1. **Happy Path Testing**:
+   - Valid request formats
+   - Expected response structures
+   - Proper HTTP status codes
+
+2. **Error Handling Testing**:
+   - Invalid request payloads
+   - Authentication failures
+   - Authorization edge cases
+   - Rate limiting scenarios
+
+3. **Edge Cases**:
+   - Boundary value testing
+   - Large payload handling
+   - Concurrent request handling
+   - Network timeout scenarios
+
+## Test Structure Template
+Create tests in `/tests/api/{endpoint-name}.test.ts`:
+
+```typescript
+describe('{Endpoint Name} API', () => {
+  describe('POST /{endpoint}', () => {
+    it('should create {resource} with valid data', async () => {
+      // Test implementation
+    });
+
+    it('should return 400 for invalid data', async () => {
+      // Test implementation
+    });
+
+    it('should require authentication', async () => {
+      // Test implementation
+    });
+  });
+
+  describe('GET /{endpoint}', () => {
+    // Additional test cases
+  });
+});
+```
+
 </details>
