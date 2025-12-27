@@ -1,4 +1,5 @@
-export type Category = 'Food' | 'Transportation' | 'Entertainment' | 'Shopping' | 'Bills' | 'Other';
+// Category is now a string to support dynamic categories
+export type Category = string;
 
 export interface Expense {
   id: string;

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Expense } from '@/types';
-import { saveExpenses, loadExpenses } from '@/lib/storage';
+import { Expense, Category } from '@/types';
+import { saveExpenses, loadExpenses, saveCategories, loadCategories } from '@/lib/storage';
 import ExpenseForm from '@/components/ExpenseForm';
 import ExpenseList from '@/components/ExpenseList';
 import Dashboard from '@/components/Dashboard';
@@ -11,14 +11,17 @@ import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'expenses' | 'analytics'>('overview');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load expenses from localStorage on mount
+  // Load expenses and categories from localStorage on mount
   useEffect(() => {
-    const loaded = loadExpenses();
-    setExpenses(loaded);
+    const loadedExpenses = loadExpenses();
+    const loadedCategories = loadCategories();
+    setExpenses(loadedExpenses);
+    setCategories(loadedCategories);
     setIsLoaded(true);
   }, []);
 
@@ -28,6 +31,13 @@ export default function Home() {
       saveExpenses(expenses);
     }
   }, [expenses, isLoaded]);
+
+  // Save categories to localStorage whenever they change
+  useEffect(() => {
+    if (isLoaded) {
+      saveCategories(categories);
+    }
+  }, [categories, isLoaded]);
 
   const handleAddExpense = (expense: Expense) => {
     setExpenses([...expenses, expense]);
@@ -55,6 +65,12 @@ export default function Home() {
 
   const handleCancelEdit = () => {
     setEditingExpense(null);
+  };
+
+  const handleAddCategory = (category: Category) => {
+    if (!categories.includes(category)) {
+      setCategories([...categories, category]);
+    }
   };
 
   if (!isLoaded) {
@@ -124,8 +140,10 @@ export default function Home() {
               editingExpense={editingExpense}
               onUpdateExpense={handleUpdateExpense}
               onCancelEdit={handleCancelEdit}
+              categories={categories}
+              onAddCategory={handleAddCategory}
             />
-            <Dashboard expenses={expenses} />
+            <Dashboard expenses={expenses} categories={categories} />
           </div>
         )}
 
@@ -134,10 +152,11 @@ export default function Home() {
             expenses={expenses}
             onDeleteExpense={handleDeleteExpense}
             onEditExpense={handleEditExpense}
+            categories={categories}
           />
         )}
 
-        {activeTab === 'analytics' && <SpendingChart expenses={expenses} />}
+        {activeTab === 'analytics' && <SpendingChart expenses={expenses} categories={categories} />}
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400 text-sm">

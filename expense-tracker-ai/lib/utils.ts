@@ -12,7 +12,7 @@ export const generateId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 };
 
-export const calculateSummaryStats = (expenses: Expense[]): SummaryStats => {
+export const calculateSummaryStats = (expenses: Expense[], categories: Category[]): SummaryStats => {
   const now = new Date();
   const monthStart = startOfMonth(now);
   const monthEnd = endOfMonth(now);
@@ -25,16 +25,17 @@ export const calculateSummaryStats = (expenses: Expense[]): SummaryStats => {
 
   const monthlySpending = monthlyExpenses.reduce((sum, expense) => sum + expense.amount, 0);
 
-  const categoryBreakdown: Record<Category, number> = {
-    Food: 0,
-    Transportation: 0,
-    Entertainment: 0,
-    Shopping: 0,
-    Bills: 0,
-    Other: 0,
-  };
+  // Initialize category breakdown with all available categories
+  const categoryBreakdown: Record<Category, number> = {};
+  categories.forEach((category) => {
+    categoryBreakdown[category] = 0;
+  });
 
+  // Add any categories from expenses that might not be in the list
   expenses.forEach((expense) => {
+    if (!(expense.category in categoryBreakdown)) {
+      categoryBreakdown[expense.category] = 0;
+    }
     categoryBreakdown[expense.category] += expense.amount;
   });
 
@@ -114,20 +115,28 @@ export const exportToCSV = (expenses: Expense[]): void => {
   document.body.removeChild(link);
 };
 
-export const CATEGORIES: Category[] = [
-  'Food',
-  'Transportation',
-  'Entertainment',
-  'Shopping',
-  'Bills',
-  'Other',
+// Default color palette for categories
+const DEFAULT_COLORS = [
+  '#ef4444', // red
+  '#f59e0b', // amber
+  '#8b5cf6', // violet
+  '#ec4899', // pink
+  '#3b82f6', // blue
+  '#6b7280', // gray
+  '#10b981', // green
+  '#f97316', // orange
+  '#06b6d4', // cyan
+  '#8b5cf6', // purple
+  '#14b8a6', // teal
+  '#f43f5e', // rose
 ];
 
-export const CATEGORY_COLORS: Record<Category, string> = {
-  Food: '#ef4444',
-  Transportation: '#f59e0b',
-  Entertainment: '#8b5cf6',
-  Shopping: '#ec4899',
-  Bills: '#3b82f6',
-  Other: '#6b7280',
+export const getCategoryColor = (category: Category, index: number): string => {
+  // Use a hash function to consistently assign colors to categories
+  const hash = category.split('').reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+
+  const colorIndex = Math.abs(hash) % DEFAULT_COLORS.length;
+  return DEFAULT_COLORS[colorIndex];
 };

@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { Expense, Category, FilterOptions } from '@/types';
-import { formatCurrency, CATEGORIES, filterExpenses } from '@/lib/utils';
+import { formatCurrency, filterExpenses } from '@/lib/utils';
 import { format } from 'date-fns';
 
 interface ExpenseListProps {
   expenses: Expense[];
   onDeleteExpense: (id: string) => void;
   onEditExpense: (expense: Expense) => void;
+  categories: Category[];
 }
 
-export default function ExpenseList({ expenses, onDeleteExpense, onEditExpense }: ExpenseListProps) {
+export default function ExpenseList({ expenses, onDeleteExpense, onEditExpense, categories }: ExpenseListProps) {
   const [filters, setFilters] = useState<FilterOptions>({
     startDate: '',
     endDate: '',
@@ -66,7 +67,7 @@ export default function ExpenseList({ expenses, onDeleteExpense, onEditExpense }
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             >
               <option value="All">All Categories</option>
-              {CATEGORIES.map((category) => (
+              {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>

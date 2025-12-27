@@ -1,14 +1,15 @@
 'use client';
 
 import { Expense, Category } from '@/types';
-import { CATEGORY_COLORS } from '@/lib/utils';
+import { getCategoryColor } from '@/lib/utils';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 interface SpendingChartProps {
   expenses: Expense[];
+  categories: Category[];
 }
 
-export default function SpendingChart({ expenses }: SpendingChartProps) {
+export default function SpendingChart({ expenses, categories }: SpendingChartProps) {
   // Prepare data for category spending
   const categoryData = expenses.reduce((acc, expense) => {
     const existing = acc.find((item) => item.category === expense.category);
@@ -61,8 +62,8 @@ export default function SpendingChart({ expenses }: SpendingChartProps) {
               outerRadius={100}
               label={(entry) => `${entry.category}: $${entry.amount.toFixed(2)}`}
             >
-              {sortedCategoryData.map((entry) => (
-                <Cell key={entry.category} fill={CATEGORY_COLORS[entry.category]} />
+              {sortedCategoryData.map((entry, index) => (
+                <Cell key={entry.category} fill={getCategoryColor(entry.category, index)} />
               ))}
             </Pie>
             <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />

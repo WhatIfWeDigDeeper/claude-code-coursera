@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Expense, Category } from '@/types';
-import { formatCurrency, CATEGORIES } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 import { exportToCSV, exportToJSON, exportToPDF } from '@/lib/exportUtils';
 import { format } from 'date-fns';
 
@@ -10,15 +10,21 @@ interface ExportModalProps {
   expenses: Expense[];
   isOpen: boolean;
   onClose: () => void;
+  categories?: Category[];
 }
 
 type ExportFormat = 'csv' | 'json' | 'pdf';
 
-export default function ExportModal({ expenses, isOpen, onClose }: ExportModalProps) {
+export default function ExportModal({ expenses, isOpen, onClose, categories = [] }: ExportModalProps) {
   const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('csv');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState<Set<Category>>(new Set(CATEGORIES));
+  const [selectedCategories, setSelectedCategories] = useState<Set<Category>>(new Set(categories));
+
+  // Update selected categories when categories prop changes
+  useEffect(() => {
+    setSelectedCategories(new Set(categories));
+  }, [categories]);
   const [customFilename, setCustomFilename] = useState('');
   const [isExporting, setIsExporting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -62,7 +68,7 @@ export default function ExportModal({ expenses, isOpen, onClose }: ExportModalPr
   };
 
   const handleSelectAllCategories = () => {
-    setSelectedCategories(new Set(CATEGORIES));
+    setSelectedCategories(new Set(categories));
   };
 
   const handleDeselectAllCategories = () => {
@@ -102,7 +108,7 @@ export default function ExportModal({ expenses, isOpen, onClose }: ExportModalPr
         // Reset state
         setStartDate('');
         setEndDate('');
-        setSelectedCategories(new Set(CATEGORIES));
+        setSelectedCategories(new Set(categories));
         setCustomFilename('');
         setShowPreview(false);
       }, 500);
@@ -116,7 +122,7 @@ export default function ExportModal({ expenses, isOpen, onClose }: ExportModalPr
   const handleReset = () => {
     setStartDate('');
     setEndDate('');
-    setSelectedCategories(new Set(CATEGORIES));
+    setSelectedCategories(new Set(categories));
     setCustomFilename('');
     setShowPreview(false);
   };
@@ -226,7 +232,7 @@ export default function ExportModal({ expenses, isOpen, onClose }: ExportModalPr
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-              {CATEGORIES.map((category) => (
+              {categories.map((category) => (
                 <label
                   key={category}
                   className={`flex items-center p-3 rounded-lg border-2 cursor-pointer transition-all ${

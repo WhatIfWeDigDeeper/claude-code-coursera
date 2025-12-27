@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Expense } from '@/types';
+import { Expense, Category } from '@/types';
 import { calculateSummaryStats, formatCurrency } from '@/lib/utils';
 import ExportModal from './ExportModal';
 
 interface DashboardProps {
   expenses: Expense[];
+  categories: Category[];
 }
 
-export default function Dashboard({ expenses }: DashboardProps) {
-  const stats = calculateSummaryStats(expenses);
+export default function Dashboard({ expenses, categories }: DashboardProps) {
+  const stats = calculateSummaryStats(expenses, categories);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   return (
@@ -104,6 +105,7 @@ export default function Dashboard({ expenses }: DashboardProps) {
         expenses={expenses}
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
+        categories={categories}
       />
     </div>
   );

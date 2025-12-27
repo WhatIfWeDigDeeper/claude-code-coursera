@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Expense, Category, ExpenseFormData } from '@/types';
-import { generateId, CATEGORIES } from '@/lib/utils';
+import { generateId } from '@/lib/utils';
 import { format } from 'date-fns';
 
 interface ExpenseFormProps {
@@ -10,6 +10,8 @@ interface ExpenseFormProps {
   editingExpense?: Expense | null;
   onUpdateExpense?: (expense: Expense) => void;
   onCancelEdit?: () => void;
+  categories: Category[];
+  onAddCategory: (category: Category) => void;
 }
 
 export default function ExpenseForm({
@@ -17,16 +19,20 @@ export default function ExpenseForm({
   editingExpense,
   onUpdateExpense,
   onCancelEdit,
+  categories,
+  onAddCategory,
 }: ExpenseFormProps) {
   const [formData, setFormData] = useState<ExpenseFormData>({
     date: editingExpense ? format(editingExpense.date, 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd'),
     amount: editingExpense ? editingExpense.amount.toString() : '',
-    category: editingExpense?.category || 'Food',
+    category: editingExpense?.category || categories[0] || 'Food',
     description: editingExpense?.description || '',
   });
 
   const [errors, setErrors] = useState<Partial<ExpenseFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
 
   const validateForm = (): boolean => {
     const newErrors: Partial<ExpenseFormData> = {};
@@ -74,7 +80,7 @@ export default function ExpenseForm({
     setFormData({
       date: format(new Date(), 'yyyy-MM-dd'),
       amount: '',
-      category: 'Food',
+      category: categories[0] || 'Food',
       description: '',
     });
     setErrors({});
@@ -85,12 +91,30 @@ export default function ExpenseForm({
     setFormData({
       date: format(new Date(), 'yyyy-MM-dd'),
       amount: '',
-      category: 'Food',
+      category: categories[0] || 'Food',
       description: '',
     });
     setErrors({});
     if (onCancelEdit) {
       onCancelEdit();
+    }
+  };
+
+  const handleAddNewCategory = () => {
+    const trimmedName = newCategoryName.trim();
+    if (trimmedName && !categories.includes(trimmedName)) {
+      onAddCategory(trimmedName);
+      setFormData({ ...formData, category: trimmedName });
+      setNewCategoryName('');
+      setShowNewCategoryInput(false);
+    }
+  };
+
+  const handleCategoryChange = (value: string) => {
+    if (value === '__new__') {
+      setShowNewCategoryInput(true);
+    } else {
+      setFormData({ ...formData, category: value });
     }
   };
 
@@ -144,18 +168,61 @@ export default function ExpenseForm({
           <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Category
           </label>
-          <select
-            id="category"
-            value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value as Category })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          >
-            {CATEGORIES.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          {showNewCategoryInput ? (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleAddNewCategory();
+                  } else if (e.key === 'Escape') {
+                    setShowNewCategoryInput(false);
+                    setNewCategoryName('');
+                  }
+                }}
+                placeholder="Enter new category name"
+                autoFocus
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
+              />
+              <button
+                type="button"
+                onClick={handleAddNewCategory}
+                disabled={!newCategoryName.trim()}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Add
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowNewCategoryInput(false);
+                  setNewCategoryName('');
+                }}
+                className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <select
+                id="category"
+                value={formData.category}
+                onChange={(e) => handleCategoryChange(e.target.value)}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+                <option value="__new__">+ Add New Category</option>
+              </select>
+            </div>
+          )}
         </div>
 
         <div>
