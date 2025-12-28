@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# IMPORTANT
+
+Before you make any change, create and check out a feature branch named "feature-some-short-name". Make and then commit your changes in this branch.
+
 ## Repository Overview
 
 This is a Coursera course repository for "Claude Code: Software Engineering with Generative AI Agents". It contains:
