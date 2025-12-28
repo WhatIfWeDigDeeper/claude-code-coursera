@@ -51,6 +51,8 @@ Explore the codebase using 4 tasks in parallel.
 Each agent should explore different directories.
 ```
 
+## Parallel Feature Development with Subagents, Tasks, and Git Worktrees
+
 
 
 ---
