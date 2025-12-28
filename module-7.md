@@ -17,7 +17,7 @@ Looking at this sketch: /imgs/napkin-insights-mockup.png
 Implement a new screen in the application that mirrors what you see in the mockup.
 ```
 
-
+A picture is worth a thousand tokens.
 
 ---
 
