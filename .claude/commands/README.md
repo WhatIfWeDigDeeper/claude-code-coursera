@@ -4,6 +4,71 @@ This directory contains reusable commands for common development tasks in this p
 
 ## Available Commands
 
+### `/parallel-work [feature-1] [feature-2] [feature-3] ...`
+
+Sets up parallel development environments using Git worktrees to work on multiple features simultaneously without conflicts.
+
+**What it does**:
+1. Creates a separate worktree for each feature at `../expense-tracker-[feature-name]`
+2. Creates a feature branch `feature/[feature-name]` in each worktree
+3. Sets up the development environment in each worktree
+4. Lists all worktrees to confirm creation
+5. Explains isolation and how to work with each worktree
+
+**Example Usage**:
+```
+/parallel-work budget-tracking notifications user-settings
+/parallel-work dark-mode export-feature
+/parallel-work authentication api-integration
+```
+
+**Output**:
+- Creates worktrees at `../expense-tracker-budget-tracking`, `../expense-tracker-notifications`, etc.
+- Each worktree has its own feature branch
+- Isolated development environments for concurrent work
+
+**Benefits**:
+- Work on multiple features simultaneously without branch switching
+- Each worktree has its own working directory and staging area
+- Run separate dev servers for different features
+- Test features in isolation before integration
+
+---
+
+### `/integrate-parallel-work [feature-1] [feature-2] [feature-3] ...`
+
+Safely integrates features developed in parallel worktrees into a single branch before merging to main.
+
+**What it does**:
+1. Creates a new integration branch called `integration/parallel-features`
+2. Merges each `feature/[feature-name]` branch into the integration branch
+3. Resolves any merge conflicts that arise
+4. Tests that all features work together
+5. Runs all tests to ensure nothing is broken
+6. Merges to main and cleans up branches once integration is successful
+
+**Example Usage**:
+```
+/integrate-parallel-work budget-tracking notifications user-settings
+/integrate-parallel-work dark-mode export-feature
+/integrate-parallel-work authentication api-integration
+```
+
+**Process**:
+- Creates `integration/parallel-features` branch
+- Merges all specified features sequentially
+- Handles conflicts with guidance
+- Validates integration through testing
+- Prepares for production merge
+
+**Best Practices**:
+- Test each feature individually before integration
+- Review merge conflicts carefully
+- Run full test suite after integration
+- Keep integration branch separate from main until validated
+
+---
+
 ### `/document-feature [feature-name]`
 
 Automatically generates comprehensive documentation for a feature in both technical (developer) and user-friendly formats.
