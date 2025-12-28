@@ -7,13 +7,14 @@ import ExpenseForm from '@/components/ExpenseForm';
 import ExpenseList from '@/components/ExpenseList';
 import Dashboard from '@/components/Dashboard';
 import SpendingChart from '@/components/SpendingChart';
+import MonthlyInsights from '@/components/MonthlyInsights';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'expenses' | 'analytics'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'expenses' | 'analytics' | 'insights'>('overview');
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load expenses and categories from localStorage on mount
@@ -129,6 +130,16 @@ export default function Home() {
             >
               Analytics
             </button>
+            <button
+              onClick={() => setActiveTab('insights')}
+              className={`pb-4 px-1 border-b-2 font-medium transition-colors ${
+                activeTab === 'insights'
+                  ? 'border-primary-600 text-primary-600 dark:text-primary-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600'
+              }`}
+            >
+              Insights
+            </button>
           </nav>
         </div>
 
@@ -157,6 +168,8 @@ export default function Home() {
         )}
 
         {activeTab === 'analytics' && <SpendingChart expenses={expenses} categories={categories} />}
+
+        {activeTab === 'insights' && <MonthlyInsights expenses={expenses} categories={categories} />}
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400 text-sm">
