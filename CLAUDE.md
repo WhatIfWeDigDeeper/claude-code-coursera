@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # IMPORTANT
 
-Before you make any change, create and check out a feature branch named "feature-some-short-name". Make and then commit your changes in this branch.
+1. Before you make any change, create and check out a feature branch named "feature-some-short-name". Make and then commit your changes in this branch.
+
+2. You must write automated tests for all code.
+
+3. You must compile the code and pass ALL tests and linting before committing.
 
 ## Repository Overview
 
