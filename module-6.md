@@ -37,6 +37,8 @@ Add to [CLAUDE.md](CLAUDE.md)
 3. You must compile the code and pass ALL tests and linting before committing.
 ```
 
+![Checks own work](imgs/check-own-work.jpg)
+
 ## AI Labor Scalability: Software Design, Token Limits, and Maintainability
 
 Single responsibility, minimal changes, prevent ripple effects. Smaller files easier for AI to grok and to fit within the token limit.
@@ -84,7 +86,11 @@ Provide a comprehensive technical analysis before we start coding.
 Save the plan to development_plan.txt
 ```
 
+## Project Structure and File Naming is Critical Context for Claude Code Scalability
 
+Same for onboarding new engineers. Ask to create project structure obvious and clear from the top level will reduce the amount of files they have to look through. Provide rich context and common naming conventions (that it was trained on) so as to provide less documentation on how things are laid out.
+
+Helps Claude to figure out where to make changes without having to dive into the details -> thinking/token efficient. gm: `ls` vs `cat`. Structure matches prompts -> token efficient (less cost), faster, more likely to do the right thing (on its own), reduces human interaction -> more scalable.
 
 
 ---
