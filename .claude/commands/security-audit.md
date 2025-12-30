@@ -193,7 +193,7 @@ Create file at `expense-tracker-ai/docs/dev/${ARGUMENTS}-security-audit.md` with
 ### Recommendations
 - Upgrade affected packages to secure versions
 - Review and test upgrades in isolated environment
-- Do NOT use `npm audit fix --force` without testing
+- Do NOT use `npm audit fix --force`
 - Consider alternative packages if patches unavailable
 
 ## Code-Level Vulnerabilities
