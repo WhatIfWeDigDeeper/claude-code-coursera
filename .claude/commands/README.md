@@ -69,6 +69,84 @@ Safely integrates features developed in parallel worktrees into a single branch 
 
 ---
 
+### `/npm-latest <packages>`
+
+Automatically updates npm packages to their latest versions with comprehensive testing and validation in an isolated git worktree.
+
+**What it does**:
+1. Creates an isolated git worktree for safe testing
+2. Updates specified packages to latest versions (preferring LTS where applicable)
+3. Updates any peer dependencies that need updating
+4. Runs npm audit and attempts automated security fixes
+5. Validates with build, lint, and test commands
+6. Provides detailed error analysis and recommendations if issues occur
+
+**Example Usage**:
+```
+# Update specific packages
+/npm-latest jest @types/jest
+
+# Update all packages
+/npm-latest .
+
+# Update packages matching glob patterns
+/npm-latest @testing-library/* jest*
+```
+
+**Package Selection**:
+- **Specific packages**: List package names separated by spaces
+- **All packages**: Use `.` to update everything in package.json
+- **Glob patterns**: Use `*` wildcards (e.g., `@testing-library/*` matches `@testing-library/react`, `@testing-library/jest-dom`, etc.)
+
+**LTS Handling**:
+- Automatically detects and prefers LTS versions for stability
+- Checks for `lts` dist-tags before defaulting to `latest`
+- Documents version selection reasoning
+
+**Validation Process**:
+1. ✅ npm install
+2. ✅ npm run build
+3. ✅ npm run lint
+4. ✅ npm test
+
+**Error Handling**:
+- Categorizes failures (build errors, lint errors, test failures, security issues)
+- Provides specific recommendations for each failure type
+- Offers multiple recovery options (revert specific updates, update individually, manual fixes)
+- Safe cleanup if updates cannot be completed
+
+**Output Example**:
+```
+🔄 Updating npm packages...
+
+📦 Packages to update:
+  - jest: 29.0.0 → 30.2.0
+  - @types/jest: 29.0.0 → 30.0.0
+
+🌿 Created worktree: npm-update-20231215-143022
+
+⬆️  Updating packages...
+✓ Updated jest to 30.2.0
+✓ Updated @types/jest to 30.0.0
+
+🔒 Running npm audit...
+✓ No vulnerabilities found
+
+✅ Validation:
+✓ Build: passed
+✓ Lint: passed
+✓ Tests: passed
+```
+
+**Benefits**:
+- Isolated testing environment prevents breaking your main workspace
+- Comprehensive validation catches issues before merging
+- Automated security audits ensure dependencies are safe
+- Clear error diagnostics help resolve issues quickly
+- LTS preference provides production stability
+
+---
+
 ### `/document-feature [feature-name]`
 
 Automatically generates comprehensive documentation for a feature in both technical (developer) and user-friendly formats.
