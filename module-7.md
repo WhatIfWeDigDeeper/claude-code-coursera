@@ -42,6 +42,8 @@ Editing CLAUDE.md and commands rather than fixing the code will lead to
 
 Like adding linting rules rather than a human catching them in a PR review. You now rarely write code directly, except maybe as examples. You now write programs by writing and updating the AI spec, context, and process.
 
+gm - You've become a markdown engineer.
+
 
 ---
 
