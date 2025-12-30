@@ -11,7 +11,7 @@ Performs a comprehensive security vulnerability scan for a specific feature or t
 **Examples:**
 - `/security-audit password-reset`
 - `/security-audit export-modal`
-- `/security-audit full-app` (for complete application scan)
+- `/security-audit .` (for complete application scan)
 
 ## What This Command Does
 
@@ -69,7 +69,7 @@ Based on the feature name provided in `$ARGUMENTS`:
    - `app/{feature-name}/`
    - `lib/{feature-name}.ts`
 
-3. For "full-app" scan, analyze all application code files
+3. For "." (full app) scan, analyze all application code files
 
 ### Step 4: Code-Level Security Analysis
 
@@ -172,7 +172,7 @@ Create file at `expense-tracker-ai/docs/dev/${ARGUMENTS}-security-audit.md` with
 # Security Audit Report: {Feature Name}
 
 **Date**: {Current Date}
-**Scope**: {Feature description or "Full Application" if full-app}
+**Scope**: {Feature description or "Full Application" if "."}
 **Auditor**: Claude Code Security Audit
 
 ## Executive Summary
@@ -314,3 +314,5 @@ For full app audit:
 ```
 expense-tracker-ai/docs/dev/full-app-security-audit.md
 ```
+
+**Note**: Use `.` as the feature name for full application scans, which creates a more intuitive CLI experience.

@@ -122,7 +122,7 @@ Recommends security guidelines to add to [CLAUDE.md](CLAUDE.md):
 
 ### Full Application Scan
 ```bash
-/security-audit full-app
+/security-audit .
 ```
 
 ### Example Workflow
@@ -200,7 +200,7 @@ Identifies relevant files by:
    - `components/{FeatureName}.tsx`
    - `app/{feature-name}/`
    - `lib/{feature-name}.ts`
-3. For "full-app", scans all application files
+3. For "." (full app scan), analyzes all application files
 
 ### Vulnerability Detection
 
@@ -311,7 +311,7 @@ To verify the command works:
 /security-audit export-modal
 
 # Test with full app
-/security-audit full-app
+/security-audit .
 
 # Verify report generation
 ls expense-tracker-ai/docs/dev/*security-audit.md

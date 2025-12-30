@@ -12,7 +12,7 @@ This guide explains how to use the `/security-audit` command to scan your code f
 ```bash
 /security-audit password-reset
 /security-audit export-modal
-/security-audit full-app
+/security-audit .
 ```
 
 ## What Gets Scanned
@@ -130,13 +130,13 @@ Run audits:
 
 2. **Pre-Deployment**:
    ```bash
-   /security-audit full-app
+   /security-audit .
    # ... address critical/high issues ...
    ```
 
 3. **Regular Maintenance**:
    ```bash
-   /security-audit full-app
+   /security-audit .
    # ... update dependencies ...
    # ... update CLAUDE.md ...
    ```
@@ -240,7 +240,7 @@ const sanitized = validateAndSanitize(userInput);
 ### "No files found for feature"
 - Check feature name spelling
 - Try related terms: `export` vs `export-modal`
-- Use `full-app` for comprehensive scan
+- Use `.` for comprehensive full application scan
 
 ### "Worktree creation failed"
 - Remove existing worktree: `git worktree remove ../security-audit-{feature}`
