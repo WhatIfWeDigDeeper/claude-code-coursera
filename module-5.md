@@ -2,6 +2,11 @@
 
 [Home](README.md) | [← Previous: Module 4](module-4.md) | [Next: Module 6 →](module-6.md)
 
+- [AI Makes Mistakes: Git Branches](#ai-makes-mistakes-git-branches)
+- [Allowing Claude Code to Work in Parallel with Git Worktrees](#allowing-claude-code-to-work-in-parallel-with-git-worktrees)
+- [Claude Subagents \& Tasks](#claude-subagents--tasks)
+- [Parallel Feature Development with Subagents, Tasks, and Git Worktrees](#parallel-feature-development-with-subagents-tasks-and-git-worktrees)
+
 ---
 
 ## AI Makes Mistakes: Git Branches

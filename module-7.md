@@ -2,6 +2,10 @@
 
 [Home](README.md) | [← Previous: Module 6](module-6.md)
 
+- [Exercise: From Coffee-Stained Napkin to Production Code with Multimodal Prompting](#exercise-from-coffee-stained-napkin-to-production-code-with-multimodal-prompting)
+- [Start By Fixing the Process \& Context, Not the Code](#start-by-fixing-the-process--context-not-the-code)
+  - [Programming the AI labor](#programming-the-ai-labor)
+
 ---
 
 ## Exercise: From Coffee-Stained Napkin to Production Code with Multimodal Prompting

@@ -2,6 +2,13 @@
 
 [Home](README.md) | [← Previous: Module 5](module-5.md) | [Next: Module 7 →](module-7.md)
 
+- [Being Claude Code's Hands, Eyes, and Ears](#being-claude-codes-hands-eyes-and-ears)
+- [Ensuring Claude Code Checks Its Own Work](#ensuring-claude-code-checks-its-own-work)
+- [AI Labor Scalability: Software Design, Token Limits, and Maintainability](#ai-labor-scalability-software-design-token-limits-and-maintainability)
+  - [Token limits on input \& output](#token-limits-on-input--output)
+- [Having Claude Code Think \& Plan First](#having-claude-code-think--plan-first)
+- [Project Structure and File Naming is Critical Context for Claude Code Scalability](#project-structure-and-file-naming-is-critical-context-for-claude-code-scalability)
+
 ---
 
 ## Being Claude Code's Hands, Eyes, and Ears
