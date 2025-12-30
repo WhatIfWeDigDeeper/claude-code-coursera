@@ -1,15 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Read(:*)",
-      "Write(:*)",
-      "Edit(:*)",
-      "Glob(:*)",
-      "Grep(:*)",
-      "Task(:*)",
-      "TaskOutput(:*)",
-      "TodoWrite(:*)",
-      "Bash(:*)"
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Task",
+      "TaskOutput",
+      "TodoWrite",
+      "Bash"
     ],
     "deny": [
       "Read(.env*)",
