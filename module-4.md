@@ -371,6 +371,51 @@ describe('{Endpoint Name} API', () => {
 
 </details>
 
+<details>
+<summary>My prompt for creating a security-audit command</summary>
+
+```md
+Objective
+Build a Claude Code command that automatically scans a feature for security vulnerabilities.
+
+Setup
+Create a new command file: .claude/commands/security-audit.md
+
+Your Task
+Write a command that takes a feature name:
+
+1. create a new git worktree
+2. Scans through the code for any security vulnerabilities. You may use `npm audit`.
+3. Provide a report feature-name-security-audit.md
+4. List any vulnerabilities, their severity, and recommended approach to fix them. You should avoid recommending npm audit fix with the --force flag.
+5. For any code level patterns, like missing validation of user input, SQL injection vulnerabilities, XSS,etc., please recommend changes to the CLAUDE.md file.
+6. Offer to fix any vulnerabilities detected.
+
+
+Command Structure
+Your command should:
+
+Accept a feature name as input
+
+Analyze the relevant code files for security vulnerabilities.
+
+Run `npm audit`. If there are other trusted security scanning packages, please add to the command to run as well.
+
+Collate the results and produce a {feature-name}-security-audit.md as specified above
+
+Example Usage /security-audit password reset
+Should generate:
+
+expense-tracker-ai/docs/dev/password-reset-security-audit.md
+
+Bonus Points
+Auto-link to security vulnerability issues
+
+If security vulnerabilities are fixed, update any developer documentation as needed.
+```
+
+</details>
+
 ## In-Context Learning: Teaching with Examples
 
 > ...one of the most important and powerful things that we do is we teach through example. We show examples of good code, what we want things to look like. We don't necessarily explain every last detail of why that's beautiful code or why it's what we want, but we show lots of great examples.
