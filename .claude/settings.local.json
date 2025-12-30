@@ -21,6 +21,7 @@
       "Bash(npm test:*)",
       "Bash(npm run lint:*)",
       "Bash(npm run build:*)",
+      "Bash(npm outdated:*)",
       "Bash(awk:*)",
       "Bash(cat:*)",
       "Bash(curl:*)",
