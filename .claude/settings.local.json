@@ -21,6 +21,7 @@
       "Bash(npm test:*)",
       "Bash(npm run lint:*)",
       "Bash(npm run build:*)",
+      "Bash(npm outdated:*)",
       "Bash(awk:*)",
       "Bash(cat:*)",
       "Bash(curl:*)",
@@ -64,8 +65,7 @@
       "Bash(git pull:*)",
       "Bash(git remote:*)",
       "Bash(git status:*)",
-      "Bash(git worktree:*)",
-      "Bash(npm outdated:*)"
+      "Bash(git worktree:*)"
     ],
     "deny": [
       "Bash(chmod:*)",
