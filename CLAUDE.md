@@ -318,12 +318,12 @@ npm run test:watch # Run tests in watch mode
 ## Quick Reference
 
 **Add new expense category**:
-Categories are now dynamic and user-customizable at runtime:
+Categories are dynamic and user-customizable at runtime:
 1. Users can add categories directly through the ExpenseForm UI ("Add New Category" button)
 2. Categories are persisted to localStorage via `saveCategories()` in [lib/storage.ts](expense-tracker-ai/lib/storage.ts)
 3. To add default categories programmatically: Update `DEFAULT_CATEGORIES` in [lib/storage.ts](expense-tracker-ai/lib/storage.ts)
 
-**Note**: The Category type is now `string`, not a union type, supporting unlimited custom categories.
+**Note**: The Category type is a `string` to support unlimited custom categories.
 
 **Add new export format**:
 1. Add export function to [lib/exportUtils.ts](expense-tracker-ai/lib/exportUtils.ts)
