@@ -17,6 +17,14 @@ This is a Coursera course repository for "Claude Code: Software Engineering with
 1. **Root level**: Course notes and documentation in [README.md](README.md)
 2. **expense-tracker-ai/**: A complete Next.js expense tracking application used for demonstrations
 
+**Additional Documentation** (in expense-tracker-ai/):
+- [DARK_MODE_GUIDE.md](expense-tracker-ai/DARK_MODE_GUIDE.md): Dark mode implementation details
+- [GETTING_STARTED.md](expense-tracker-ai/GETTING_STARTED.md): Developer onboarding guide
+- [PROJECT_SUMMARY.md](expense-tracker-ai/PROJECT_SUMMARY.md): Technical architecture overview
+- [QUICKSTART.md](expense-tracker-ai/QUICKSTART.md): Quick setup instructions
+- [START_HERE.md](expense-tracker-ai/START_HERE.md): New developer introduction
+- [docs/](expense-tracker-ai/docs/): Additional documentation (dev/, screenshots/, user/)
+
 ## Essential Commands
 
 ### Development
@@ -38,6 +46,12 @@ npm start
 
 # Lint code
 npm run lint
+
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
 ### Git Workflow
@@ -79,20 +93,35 @@ localStorage (via lib/storage.ts)
 3. **Data Flow**:
    ```
    app/page.tsx (state owner)
-   ├── ExpenseForm (adds/updates expenses)
-   ├── ExpenseList (displays & filters expenses)
-   ├── Dashboard (summary statistics)
-   └── SpendingChart (visualizations)
+   ├── expenses (Expense[] state)
+   ├── categories (Category[] state) - dynamic, user-customizable
+   ├── editingExpense (state)
+   ├── activeTab (state) - 'overview' | 'expenses' | 'analytics' | 'insights'
+   └── isLoaded (state)
+       │
+       ├── Overview Tab
+       │   ├── ExpenseForm (props: categories, onAddCategory)
+       │   └── Dashboard
+       │
+       ├── Expenses Tab
+       │   └── ExpenseList (props: categories)
+       │
+       ├── Analytics Tab
+       │   └── SpendingChart (props: categories)
+       │
+       └── Insights Tab
+           └── MonthlyInsights (props: categories)
    ```
 
 ### Type System ([types/index.ts](expense-tracker-ai/types/index.ts))
 
 **Core Types**:
-- `Category`: Union type of 6 expense categories
+- `Category`: Dynamic string type supporting custom user-defined categories (not a fixed union)
 - `Expense`: Main data model with id, date, amount, category, description
 - `ExpenseFormData`: Form-specific shape (strings for controlled inputs)
 - `FilterOptions`: Controls for filtering expense list
 - `SummaryStats`: Computed statistics for dashboard
+- `DEFAULT_CATEGORIES`: ['Food', 'Transportation', 'Entertainment', 'Shopping', 'Bills', 'Other']
 
 **Important**: Dates are stored as `Date` objects in state but serialized as strings in localStorage. The [storage.ts](expense-tracker-ai/lib/storage.ts) module handles conversion.
 
@@ -104,6 +133,8 @@ Functions:
 - `saveExpenses()`: Serializes expense array to localStorage
 - `loadExpenses()`: Deserializes from localStorage, converts date strings to Date objects
 - `clearExpenses()`: Removes all data
+- `saveCategories()`: Persists custom categories to localStorage
+- `loadCategories()`: Loads categories from localStorage, falls back to DEFAULT_CATEGORIES
 
 **Error Handling**: Try-catch on parse with fallback to empty array.
 
@@ -121,6 +152,20 @@ Functions:
 - No direct state mutations
 - Isolated, testable
 
+### Monthly Insights Component ([components/MonthlyInsights.tsx](expense-tracker-ai/components/MonthlyInsights.tsx))
+
+**Purpose**: Provides monthly spending insights with visual analytics.
+
+**Features**:
+- Donut chart visualization using Recharts PieChart
+- Top 3 spending categories for current month
+- Budget streak tracker (days since last expense)
+- Category emoji mapping for visual appeal
+- Receipt-style UI design with decorative elements
+- Full dark mode support
+
+**Test Coverage**: Comprehensive test suite in [components/MonthlyInsights.test.tsx](expense-tracker-ai/components/MonthlyInsights.test.tsx)
+
 ### Export System Architecture
 
 Two implementations exist (see [code-analysis.md](code-analysis.md) for detailed comparison):
@@ -135,7 +180,7 @@ Two implementations exist (see [code-analysis.md](code-analysis.md) for detailed
 - Multiple formats (CSV, JSON, PDF)
 - Filtering and preview
 - Uses jsPDF library
-- 850+ lines of code
+- ~420 lines of code (with exportUtils.ts: ~600 lines total)
 
 ## Development Patterns
 
@@ -145,6 +190,8 @@ Two implementations exist (see [code-analysis.md](code-analysis.md) for detailed
 2. **New Components**: Create in `components/`, export as default
 3. **Utilities**: Add to `lib/utils.ts` or create new file in `lib/`
 4. **Types**: Define in `types/index.ts` or create new file in `types/`
+5. **Utilities Functions**: Use helper functions from `lib/utils.ts`:
+   - `getCategoryColor(category, index)`: Hash-based consistent color assignment for categories
 
 ### Styling Conventions
 
@@ -178,6 +225,11 @@ Two implementations exist (see [code-analysis.md](code-analysis.md) for detailed
 
 3. **Client-Side Only**: All components need `'use client'` directive
 
+4. **Category Colors**: Use `getCategoryColor()` from `lib/utils.ts` to ensure consistent color assignment across components
+   ```typescript
+   const color = getCategoryColor(category, index); // Hash-based, same category = same color
+   ```
+
 ## Testing Different Implementations
 
 This repository demonstrates the "Best of N" pattern from Module 2:
@@ -206,6 +258,7 @@ When working with specific features:
 - **Add/Edit Form**: [components/ExpenseForm.tsx](expense-tracker-ai/components/ExpenseForm.tsx)
 - **List/Filter**: [components/ExpenseList.tsx](expense-tracker-ai/components/ExpenseList.tsx)
 - **Analytics**: [components/Dashboard.tsx](expense-tracker-ai/components/Dashboard.tsx), [components/SpendingChart.tsx](expense-tracker-ai/components/SpendingChart.tsx)
+- **Monthly Insights**: [components/MonthlyInsights.tsx](expense-tracker-ai/components/MonthlyInsights.tsx)
 - **Export**: [components/ExportModal.tsx](expense-tracker-ai/components/ExportModal.tsx), [lib/exportUtils.ts](expense-tracker-ai/lib/exportUtils.ts)
 - **Dark Mode**: [contexts/ThemeContext.tsx](expense-tracker-ai/contexts/ThemeContext.tsx), [components/ThemeToggle.tsx](expense-tracker-ai/components/ThemeToggle.tsx)
 
@@ -227,12 +280,50 @@ When working with specific features:
 - jspdf@^3.0.4
 - jspdf-autotable@^5.0.2
 
+**Testing (devDependencies)**:
+- jest@^30.2.0
+- @testing-library/react@^16.3.1
+- @testing-library/jest-dom@^6.9.1
+- @testing-library/user-event@^14.6.1
+- jest-environment-jsdom@^30.2.0
+- @types/jest@^30.0.0
+
+## Testing Infrastructure
+
+The application uses Jest with React Testing Library for component testing.
+
+**Test Stack**:
+- jest@^30.2.0
+- @testing-library/react@^16.3.1
+- @testing-library/jest-dom@^6.9.1
+- @testing-library/user-event@^14.6.1
+- jest-environment-jsdom@^30.2.0
+
+**Configuration**:
+- [jest.config.js](expense-tracker-ai/jest.config.js): Next.js integration, path alias support (@/ mapping)
+- [jest.setup.js](expense-tracker-ai/jest.setup.js): Testing library setup, ResizeObserver mock for Recharts
+
+**Running Tests**:
+```bash
+npm test           # Run all tests once
+npm run test:watch # Run tests in watch mode
+```
+
+**Test Coverage**:
+- Coverage collected from: `components/`, `lib/`, `app/`
+- Example: [MonthlyInsights.test.tsx](expense-tracker-ai/components/MonthlyInsights.test.tsx) demonstrates component testing patterns
+
+**Important**: ResizeObserver is mocked globally in jest.setup.js to support Recharts components in tests.
+
 ## Quick Reference
 
 **Add new expense category**:
-1. Update `Category` type in [types/index.ts](expense-tracker-ai/types/index.ts)
-2. Add to `CATEGORIES` constant in components that use it
-3. Update category breakdown logic in [components/Dashboard.tsx](expense-tracker-ai/components/Dashboard.tsx)
+Categories are now dynamic and user-customizable at runtime:
+1. Users can add categories directly through the ExpenseForm UI ("Add New Category" button)
+2. Categories are persisted to localStorage via `saveCategories()` in [lib/storage.ts](expense-tracker-ai/lib/storage.ts)
+3. To add default categories programmatically: Update `DEFAULT_CATEGORIES` in [lib/storage.ts](expense-tracker-ai/lib/storage.ts)
+
+**Note**: The Category type is now `string`, not a union type, supporting unlimited custom categories.
 
 **Add new export format**:
 1. Add export function to [lib/exportUtils.ts](expense-tracker-ai/lib/exportUtils.ts)
