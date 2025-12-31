@@ -45,4 +45,5 @@
 
 ## Additional Resources
 
+- [Claude Code Repo Commands](.claude/commands/README.md) - reusable prompts
 - [Writing Effective Prompts for Claude Code](writing-effective-prompts.md) - Comprehensive guide to crafting effective prompts
