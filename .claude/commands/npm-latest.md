@@ -32,7 +32,9 @@ Updates npm packages to their latest versions with automated testing and validat
 3. **Updates dependencies** that also need updating
 4. **Runs npm audit** and attempts fixes for vulnerabilities
 5. **Validates** with compile, test, and lint commands
-6. **Reports results** with recommendations if errors occur
+6. **Creates a commit** with the validated updates
+7. **Asks user** whether to merge to main and clean up
+8. **Merges and cleans up** based on user choice
 
 ## Instructions for Claude
 
@@ -169,15 +171,18 @@ npm test
 - If command fails, log the error
 - Continue to next validation step to collect all errors
 
-### Step 10: Analyze Results
+### Step 10: Analyze Results and Create Commit
 
 **If all validations pass:**
 1. Create a summary of updated packages with version changes
 2. Show audit results
-3. Ask user if they want to:
-   - Merge the worktree changes back to main branch
-   - Create a commit in the worktree
-   - Review changes before proceeding
+3. Create a commit in the worktree with the updates
+4. **Use AskUserQuestion tool** to ask if they want to proceed with merge and cleanup:
+   - Question: "The package updates have been validated and committed. Would you like to merge to main and clean up the worktree?"
+   - Options:
+     - "Yes, merge and clean up (Recommended)" - Proceed with Steps 11-12
+     - "No, I'll review first" - Provide instructions for manual review
+     - "Discard changes" - Clean up worktree without merging
 
 **If validations fail:**
 1. Categorize failures:
@@ -212,30 +217,46 @@ npm test
    - Create an issue/task list for manual fixes
    - Abandon the updates and clean up worktree
 
-### Step 11: Cleanup or Integration
+### Step 11: Merge to Main (if user approved)
 
-**On success:**
+**If user selected "Yes, merge and clean up":**
 ```bash
-# Option 1: Create a commit in worktree
-cd "$WORKTREE_PATH"
-git add package.json package-lock.json
-git commit -m "chore: update npm packages to latest versions"
-
-# Option 2: User can then merge or create PR
-# Guide user through next steps
+# Merge the worktree branch to main
+git merge "$WORKTREE_NAME" --no-edit
 ```
 
-**On failure or user request:**
-```bash
-# Return to original directory
-cd <original-directory>
+Show merge result and proceed to Step 12.
 
+**If user selected "No, I'll review first":**
+Provide instructions:
+```
+You can review the changes with these commands:
+1. Review changes: cd ../$WORKTREE_NAME
+2. View commit: git log -1 --stat
+3. View diff: git show HEAD
+
+When ready to merge:
+1. Return to main: cd <original-directory>
+2. Merge: git merge $WORKTREE_NAME
+3. Clean up: git worktree remove ../$WORKTREE_NAME
+```
+
+Do NOT proceed to Step 12 - leave worktree intact for user review.
+
+**If user selected "Discard changes":**
+Skip to Step 12 and clean up without merging.
+
+### Step 12: Clean Up Worktree
+
+```bash
 # Remove worktree
 git worktree remove "$WORKTREE_PATH"
 
 # Delete branch if created
 git branch -D "$WORKTREE_NAME"
 ```
+
+Confirm cleanup complete and show final git status.
 
 ## Edge Cases to Handle
 
@@ -272,13 +293,31 @@ Provide clear, structured output:
 ✓ Lint: passed
 ✓ Tests: passed
 
+📝 Commit created: 4cc1605 - "chore: update npm packages to latest versions"
+
 📊 Summary:
 Successfully updated 2 packages. All validation checks passed.
 
-Next steps:
+[Interactive prompt appears asking user to choose next action]
+```
+
+**If user chooses "Yes, merge and clean up":**
+```
+✅ Merged to main successfully
+🧹 Cleaned up worktree
+✓ Update complete!
+```
+
+**If user chooses "No, I'll review first":**
+```
+You can review the changes with these commands:
 1. Review changes: cd ../npm-update-20231215-143022
-2. Merge to main: git merge npm-update-20231215-143022
-3. Clean up: git worktree remove ../npm-update-20231215-143022
+2. View commit: git log -1 --stat
+3. View diff: git show HEAD
+
+When ready to merge:
+1. Merge to main: git merge npm-update-20231215-143022
+2. Clean up: git worktree remove ../npm-update-20231215-143022
 ```
 
 ## Important Notes
