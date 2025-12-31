@@ -133,6 +133,12 @@ npm run build        # Create production build
 npm start            # Start production server
 npm run lint         # Run ESLint
 
+# Testing
+npm test             # Run unit tests
+npm run test:watch   # Run unit tests in watch mode
+npm run test:e2e     # Run end-to-end tests
+npm run test:e2e:ui  # Run e2e tests in UI mode
+
 # Cleanup
 rm -rf .next         # Clear build cache
 rm -rf node_modules  # Remove dependencies (then npm install again)
@@ -148,6 +154,11 @@ All available npm scripts:
 | `npm run build` | Create optimized production build |
 | `npm start` | Start production server (must build first) |
 | `npm run lint` | Check code for linting errors |
+| `npm test` | Run unit tests |
+| `npm run test:watch` | Run unit tests in watch mode |
+| `npm run test:e2e` | Run end-to-end tests with Playwright |
+| `npm run test:e2e:ui` | Run e2e tests in interactive UI mode |
+| `npm run test:e2e:debug` | Debug e2e tests |
 
 ## Troubleshooting
 
@@ -265,6 +276,7 @@ Now that you have the app running:
 - 📚 **README.md**: Full project documentation
 - 🚀 **QUICKSTART.md**: Feature testing guide
 - 📊 **PROJECT_SUMMARY.md**: Complete technical overview
+- 🧪 **docs/dev/testing-guide.md**: Testing documentation
 
 ## Tips for Best Experience
 
