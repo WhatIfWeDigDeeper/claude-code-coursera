@@ -377,16 +377,55 @@ describe('{Endpoint Name} API', () => {
 Prompt template for creating a command
 
 ```md
-Create [command-name] command and documentation:
+# Task: Create `/[command-name]` command and documentation for [purpose]:
+
+## Deliverables
 
 Files to create/update:
 1. .claude/commands/[command-name].md - full command implementation
 2. .claude/commands/README.md - add entry following existing format
+3. Please create both the command and documentation update in a single response.
 
-Requirements:
-[Detailed specs here]
+## Command Requirements:
 
-Output both files in one response.
+[Detailed specs here, samples below]
+
+### Core Workflow
+
+1. Create isolated git worktree for testing
+2. [Detailed steps here]
+3. Validate: audit → build → lint → test
+
+### Input Handling
+
+- **Specific**: `/[command-name] $ARGUMENTS`
+ - **Glob**: support Glob patterns in $ARGUMENTS
+- **All**: `/[command-name] .`
+ - if all, consider using subagents to break up the tasks to run in parallel
+
+### Error Handling
+Categorize and provide recommendations for:
+- Build errors → check breaking changes, update @types/* packages
+- Lint errors → show failures, suggest fixes
+- Test failures → link migration guides
+- Security issues → manual remediation steps
+
+### Success Criteria
+
+- Clean worktree isolation (main branch untouched)
+- Full validation suite runs
+- Clear pass/fail reporting
+- Cleanup options on failure
+- Merge guidance on success
+
+## Documentation Format
+
+Follow existing README.md structure:
+- Section header: `### /[command-name] <$ARGUMENTS>`
+- Include: What it does, Example Usage, Benefits
+- Show example output
+- Explain validation process
+
 ```
 
 
@@ -399,12 +438,15 @@ I created an initial version by hand and later asked Claude to improve the promp
 # Task: Create `/npm-latest` Command for Automated Package Updates
 
 ## Deliverables
+
 1. Command file: `.claude/commands/npm-latest.md`
 2. Documentation: Update `.claude/commands/README.md`
+3. Please create both the command and documentation update in a single response.
 
 ## Command Requirements
 
 ### Core Workflow
+
 1. Create isolated git worktree for testing
 2. Identify packages to update (support specific, glob, or all)
 3. Update to latest versions (prefer LTS when available)
@@ -414,17 +456,20 @@ I created an initial version by hand and later asked Claude to improve the promp
 7. Report results with actionable recommendations
 
 ### Input Handling
+
 - **Specific**: `/npm-latest jest @types/jest`
 - **All**: `/npm-latest .`
 - **Glob**: `/npm-latest @testing-library/* jest*`
   - Should match: @testing-library/react, @testing-library/jest-dom, etc.
 
 ### LTS Detection
+
 - Check npm dist-tags for 'lts' tag
 - For Node ecosystem: prefer even major versions
 - Document version selection reasoning
 
 ### Error Handling
+
 Categorize and provide recommendations for:
 - Build errors → check breaking changes, update @types/* packages
 - Lint errors → show failures, suggest fixes
@@ -432,6 +477,7 @@ Categorize and provide recommendations for:
 - Security issues → manual remediation steps
 
 ### Success Criteria
+
 - Clean worktree isolation (main branch untouched)
 - Full validation suite runs
 - Clear pass/fail reporting
@@ -439,6 +485,7 @@ Categorize and provide recommendations for:
 - Merge guidance on success
 
 ## Documentation Format
+
 Follow existing README.md structure:
 - Section header: `### /npm-latest <packages>`
 - Include: What it does, Example Usage, Benefits
@@ -449,7 +496,6 @@ Follow existing README.md structure:
 
 🔄 Updating npm packages... 📦 Packages to update: jest (29.0.0 → 30.2.0) 🌿 Created worktree: npm-update-TIMESTAMP ⬆️ Updating packages... ✓ 🔒 Running npm audit... ✓ ✅ Validation: Build ✓ Lint ✓ Tests ✓
 
-Please create both the command and documentation in a single response.
 
 ```
 
