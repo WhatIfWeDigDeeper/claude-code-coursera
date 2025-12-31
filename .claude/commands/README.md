@@ -147,6 +147,84 @@ Automatically updates npm packages to their latest versions with comprehensive t
 
 ---
 
+### `/e2e-test <feature|pattern|all>`
+
+Creates comprehensive Playwright end-to-end tests in an isolated git worktree environment with full validation.
+
+**What it does**:
+1. Creates an isolated git worktree at `../e2e-test-worktree-[timestamp]`
+2. Installs and configures Playwright (if not present)
+3. Adds npm test scripts for e2e testing
+4. Creates test structure (`tests/e2e/` directory)
+5. Generates comprehensive test files with proper coverage
+6. Runs tests and fixes application code issues (not test workarounds)
+7. Validates with full suite: build → lint → unit tests → e2e tests
+8. Updates documentation (testing guide, getting started, CLAUDE.md)
+9. Prompts user to merge changes back to main
+
+**Example Usage**:
+```
+# Test specific feature
+/e2e-test expense-form
+
+# Test features matching pattern
+/e2e-test expense-*
+
+# Test all features
+/e2e-test all
+/e2e-test .
+```
+
+**Test Coverage**:
+- ✅ Happy path scenarios
+- ✅ Edge cases and boundary conditions
+- ✅ Error states and validation
+- ✅ Accessibility checks
+- ✅ Uses data-testid for stable selectors
+- ✅ Follows Page Object Model pattern
+
+**Validation Process**:
+1. ✅ `npm run build` - Verify no build errors
+2. ✅ `npm run lint` - Verify no lint errors
+3. ✅ `npm test` - Verify unit tests still pass
+4. ✅ `npm run test:e2e` - Verify e2e tests pass
+
+**Error Handling**:
+- Categorizes failures (build, lint, test, security)
+- Provides specific recommendations for each failure type
+- Links to debugging tools (`--ui`, `--debug`, `--headed` modes)
+- Safe cleanup on failure with user confirmation
+
+**Benefits**:
+- Isolated testing environment (worktree prevents breaking main workspace)
+- Comprehensive test coverage with best practices
+- Application code fixes (not brittle test workarounds)
+- Full validation ensures production readiness
+- Parallel execution for multiple features (>3 uses subagents)
+- Clear documentation of patterns and gotchas
+
+**Output Example**:
+```
+✅ E2E Testing Complete
+
+📊 Summary:
+- Tests created: 1 file (12 tests)
+- Application code changes: 2
+
+📝 Tests Created:
+- tests/e2e/expense-form.spec.ts (12 tests)
+
+🔧 Application Changes:
+- Added data-testid to submit button (components/ExpenseForm.tsx:45)
+- Fixed validation for negative amounts (components/ExpenseForm.tsx:78)
+
+✅ Validation: build ✓ lint ✓ unit tests ✓ e2e tests (12/12) ✓
+
+Merge changes back to main branch? (yes/no)
+```
+
+---
+
 ### `/document-feature [feature-name]`
 
 Automatically generates comprehensive documentation for a feature in both technical (developer) and user-friendly formats.
