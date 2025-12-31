@@ -9,6 +9,7 @@
 - [Writing CLAUDE.md Files](#writing-claudemd-files)
 - [Reusable Targeted Context \& Process: Claude Code Commands](#reusable-targeted-context--process-claude-code-commands)
 - [Creating Claude Commands](#creating-claude-commands)
+- [Prompts for creating a command](#prompts-for-creating-a-command)
 - [In-Context Learning: Teaching with Examples](#in-context-learning-teaching-with-examples)
 - [Exercise: Building a Documentation Generator](#exercise-building-a-documentation-generator)
 
@@ -371,47 +372,165 @@ describe('{Endpoint Name} API', () => {
 
 </details>
 
+## Prompts for creating a command
+
+Prompt template for creating a command
+
+```md
+Create [command-name] command and documentation:
+
+Files to create/update:
+1. .claude/commands/[command-name].md - full command implementation
+2. .claude/commands/README.md - add entry following existing format
+
+Requirements:
+[Detailed specs here]
+
+Output both files in one response.
+```
+
+
+<details>
+<summary>My prompt to create an npm-latest command</summary>
+
+I created an initial version by hand and later asked Claude to improve the prompt.
+
+```md
+# Task: Create `/npm-latest` Command for Automated Package Updates
+
+## Deliverables
+1. Command file: `.claude/commands/npm-latest.md`
+2. Documentation: Update `.claude/commands/README.md`
+
+## Command Requirements
+
+### Core Workflow
+1. Create isolated git worktree for testing
+2. Identify packages to update (support specific, glob, or all)
+3. Update to latest versions (prefer LTS when available)
+4. Update peer dependencies as needed
+5. Run npm audit + automated fixes
+6. Validate: build → lint → test
+7. Report results with actionable recommendations
+
+### Input Handling
+- **Specific**: `/npm-latest jest @types/jest`
+- **All**: `/npm-latest .`
+- **Glob**: `/npm-latest @testing-library/* jest*`
+  - Should match: @testing-library/react, @testing-library/jest-dom, etc.
+
+### LTS Detection
+- Check npm dist-tags for 'lts' tag
+- For Node ecosystem: prefer even major versions
+- Document version selection reasoning
+
+### Error Handling
+Categorize and provide recommendations for:
+- Build errors → check breaking changes, update @types/* packages
+- Lint errors → show failures, suggest fixes
+- Test failures → link migration guides
+- Security issues → manual remediation steps
+
+### Success Criteria
+- Clean worktree isolation (main branch untouched)
+- Full validation suite runs
+- Clear pass/fail reporting
+- Cleanup options on failure
+- Merge guidance on success
+
+## Documentation Format
+Follow existing README.md structure:
+- Section header: `### /npm-latest <packages>`
+- Include: What it does, Example Usage, Benefits
+- Show example output
+- Explain validation process
+
+## Output Format Example
+
+🔄 Updating npm packages... 📦 Packages to update: jest (29.0.0 → 30.2.0) 🌿 Created worktree: npm-update-TIMESTAMP ⬆️ Updating packages... ✓ 🔒 Running npm audit... ✓ ✅ Validation: Build ✓ Lint ✓ Tests ✓
+
+Please create both the command and documentation in a single response.
+
+```
+
+</details>
+
 <details>
 <summary>My prompt for creating a security-audit command</summary>
 
+Again improved after the fact by Claude.
+
 ```md
-Objective
-Build a Claude Code command that automatically scans a feature for security vulnerabilities.
+# Task: Create `/security-audit` Command for Automated Security Scanning
 
-Setup
-Create a new command file: .claude/commands/security-audit.md
+## Deliverables
+1. Command file: `.claude/commands/security-audit.md` - full implementation
+2. Documentation: Update `.claude/commands/README.md` - add entry following existing format
+3. Output both files in a single response
 
-Your Task
-Write a command that takes a feature name:
+## Command Requirements
 
-1. create a new git worktree
-2. Scans through the code for any security vulnerabilities. You may use `npm audit`.
-3. Provide a report feature-name-security-audit.md
-4. List any vulnerabilities, their severity, and recommended approach to fix them. You should avoid recommending npm audit fix with the --force flag.
-5. For any code level patterns, like missing validation of user input, SQL injection vulnerabilities, XSS,etc., please recommend changes to the CLAUDE.md file.
-6. Offer to fix any vulnerabilities detected.
+### Input
+- **Feature name**: `/security-audit [feature-name]`
+- Example: `/security-audit password-reset`
+- Optional: `/security-audit .` for full application audit
 
+### Core Workflow
+1. **Create isolated git worktree** for safe scanning (prevents disrupting main workspace)
+2. **Identify feature scope**:
+   - Find all files related to the feature
+   - Include components, utilities, API routes, storage functions
+   - For "." scan entire application
+3. **Run automated security tools**:
+   - `npm audit` (dependency vulnerabilities)
+   - `npm audit --json` (for structured output parsing)
+   - Additional trusted tools if available (eslint-plugin-security, etc.)
+4. **Perform code-level security analysis**:
+   - Input validation (missing/inadequate validation)
+   - XSS vulnerabilities (dangerouslySetInnerHTML, raw HTML)
+   - SQL injection patterns (if database queries present)
+   - Command injection (unsafe shell command execution)
+   - Insecure storage (secrets in localStorage, hardcoded credentials)
+   - CSRF vulnerabilities
+   - Authentication/authorization issues
+   - Insecure dependencies or imports
+5. **Generate security audit report**: `expense-tracker-ai/docs/dev/[feature-name]-security-audit.md`
+6. **Offer remediation**: Present options to fix detected vulnerabilities
 
-Command Structure
-Your command should:
+### Security Audit Report Format
 
-Accept a feature name as input
+**File**: `expense-tracker-ai/docs/dev/[feature-name]-security-audit.md`
 
-Analyze the relevant code files for security vulnerabilities.
+**Required Sections**:
+```markdown
+# [Feature Name] Security Audit
 
-Run `npm audit`. If there are other trusted security scanning packages, please add to the command to run as well.
+**Date**: YYYY-MM-DD
+**Scope**: [List of files analyzed]
+**Severity Summary**: X Critical, Y High, Z Medium, W Low
 
-Collate the results and produce a {feature-name}-security-audit.md as specified above
+## Executive Summary
+[Brief overview of security posture]
 
-Example Usage /security-audit password reset
-Should generate:
+## Dependency Vulnerabilities (npm audit)
 
-expense-tracker-ai/docs/dev/password-reset-security-audit.md
+### Critical Severity
+- **Package**: package-name@version
+  - **Vulnerability**: CVE-XXXX or description
+  - **Path**: dependency chain
+  - **Recommended Fix**: Upgrade to version X.Y.Z
+  - **Breaking Changes**: Yes/No - [details if yes]
 
-Bonus Points
-Auto-link to security vulnerability issues
+[Repeat for High, Medium, Low]
 
-If security vulnerabilities are fixed, update any developer documentation as needed.
+## Code-Level Vulnerabilities
+
+### [Vulnerability Type] - [Severity]
+- **Location**: [file-path:line-number]
+- **Issue**: [Description of the vulnerability]
+- **Risk**: [What could happen if exploited]
+- **Recommendation**: [Specific code changes needed]
+
 ```
 
 </details>
