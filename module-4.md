@@ -10,6 +10,8 @@
 - [Reusable Targeted Context \& Process: Claude Code Commands](#reusable-targeted-context--process-claude-code-commands)
 - [Creating Claude Commands](#creating-claude-commands)
 - [Prompts for creating a command](#prompts-for-creating-a-command)
+  - [Prompt template for creating a command](#prompt-template-for-creating-a-command)
+  - [Sample prompts](#sample-prompts)
 - [In-Context Learning: Teaching with Examples](#in-context-learning-teaching-with-examples)
 - [Exercise: Building a Documentation Generator](#exercise-building-a-documentation-generator)
 
@@ -374,7 +376,7 @@ describe('{Endpoint Name} API', () => {
 
 ## Prompts for creating a command
 
-Prompt template for creating a command
+### Prompt template for creating a command
 
 ```md
 # Task: Create `/[command-name]` command and documentation for [purpose]:
@@ -428,6 +430,7 @@ Follow existing README.md structure:
 
 ```
 
+### Sample prompts
 
 <details>
 <summary>My prompt to create an npm-latest command</summary>
@@ -587,8 +590,7 @@ Again improved after the fact by Claude.
 
 ## Exercise: Building a Documentation Generator
 
-
-
+See [document-feature](.claude/commands/document-feature.md) command.
 
 ---
 
