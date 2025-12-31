@@ -584,6 +584,160 @@ Again improved after the fact by Claude.
 
 </details>
 
+<details>
+<summary>My prompt for creating an e2e-test command</summary>
+
+I created an initial prompt by hand and then asked Claude to improve it.
+
+```md
+# Task: Create `/e2e-test` command and documentation
+
+## Deliverables
+1. `.claude/commands/e2e-test.md` - full command implementation
+2. `.claude/commands/README.md` - add entry following existing format
+3. Output both files in complete, ready-to-use form
+
+## Command Requirements
+
+### Core Workflow
+1. **Create isolated git worktree** in `../e2e-test-worktree-[timestamp]`
+2. **Install Playwright** (if not present):
+   - `npm install -D @playwright/test`
+   - Initialize: `npx playwright install --with-deps`
+   - Create `playwright.config.ts` with sensible defaults if missing
+3. **Add npm script** (if not present):
+   - Add `"test:e2e": "playwright test"` to `package.json`
+4. **Create test structure**:
+   - Create `tests/e2e/` directory if it doesn't exist
+   - Add `.gitignore` entries for test artifacts
+5. **Generate test files** (`$ARGUMENTS.spec.ts`):
+   - **Specific feature**: `$ARGUMENTS` → create/update that feature's test
+   - **Glob pattern**: Match files/features via glob → create tests for matches
+   - **All features** (`.` or `all`):
+     - Identify features from components/ and app/ directories
+     - Create tests for features without matching `*.spec.ts` in tests/e2e/
+     - Review existing tests for completeness, update as needed
+6. **Test implementation standards**:
+   - Follow Playwright best practices (Page Object Model recommended)
+   - Cover happy paths and edge cases:
+     - Valid inputs
+     - Invalid inputs (boundary conditions)
+     - Empty states
+     - Error states
+   - Use data-testid attributes for reliable selectors
+   - Include accessibility checks where applicable
+7. **Run tests and fix failures**:
+   - Execute `npm run test:e2e`
+   - For failures, update application code (not test workarounds)
+   - Fixes must be general/robust, not hardcoded for specific values
+8. **Validate full suite** (in order):
+   - `npm run build` - verify no build errors
+   - `npm run lint` - verify no lint errors
+   - `npm test` - verify unit tests still pass
+   - `npm run test:e2e` - verify e2e tests pass
+9. **Documentation updates**:
+   - Update relevant files in `expense-tracker-ai/docs/dev/`
+   - Add/update e2e testing section in relevant getting started docs
+10. **Update CLAUDE.md**:
+    - Add section on e2e testing conventions
+    - Document any patterns that prevent test failures
+    - Add common gotchas discovered during test creation
+11. **Report results**:
+    - Summary of tests created/updated
+    - List of application code changes made
+    - Test coverage gaps (if any)
+12. **Prompt user for merge**:
+    - Ask: "E2E tests are passing. Merge changes back to main branch?"
+    - If yes: merge worktree → main, then remove worktree
+    - If no: provide instructions for manual review and cleanup
+
+### Input Handling
+
+- **Specific feature**: `/e2e-test auth` → tests/e2e/auth.spec.ts
+- **Glob pattern**: `/e2e-test expense-*` → match features, create tests
+- **All features**: `/e2e-test .` or `/e2e-test all`
+  - For "all": use Task tool with multiple parallel subagents if >3 features
+  - Each subagent handles 1-2 features independently
+
+### Error Handling & Categorization
+
+**Build errors**:
+- Check for breaking changes in dependencies
+- Suggest `npm install` or `npm ci` if lock file drift
+- Update `@types/*` packages if type errors
+
+**Lint errors**:
+- Display all failures with file:line references
+- Suggest `npm run lint -- --fix` for auto-fixable issues
+- Provide manual fix guidance for complex issues
+
+**Test failures**:
+- Categorize: flaky vs. deterministic
+- Link to Playwright debugging docs
+- Show `--debug` and `--headed` run options
+
+**Security issues**:
+- Flag any new security warnings from `npm audit`
+- Provide manual remediation steps (don't auto-fix with --force)
+
+### Success Criteria
+
+✅ Worktree created and isolated (main branch unchanged)
+✅ Playwright installed and configured
+✅ All requested tests created with proper coverage
+✅ Full validation suite passes (build + lint + unit + e2e)
+✅ Clear pass/fail report with file references
+✅ Documentation updated
+✅ CLAUDE.md updated with new patterns
+✅ User prompted for merge decision
+✅ Cleanup completed (if merge accepted)
+
+### Cleanup Strategy
+
+**On success**: Keep worktree until user confirms merge
+**On failure**:
+- Ask user: "Tests failed. Keep worktree for debugging or clean up?"
+- Provide worktree path for manual inspection
+- Offer cleanup command: `git worktree remove ../e2e-test-worktree-[timestamp]`
+
+## Documentation Format
+
+Follow structure in existing `.claude/commands/README.md`:
+
+\`\`\`markdown
+### /e2e-test <feature|pattern|all>
+
+**What it does**: Creates comprehensive Playwright E2E tests in isolated worktree
+
+**Example Usage**:
+\`\`\`
+/e2e-test expense-form
+/e2e-test auth*
+/e2e-test all
+\`\`\`
+
+**Benefits**:
+- Isolated testing environment
+- Full validation suite
+- Auto-fixes application code
+- Updates documentation
+
+**Validation Process**: build → lint → unit tests → e2e tests → merge
+\`\`\`
+
+## Playwright Configuration Defaults
+
+When creating `playwright.config.ts`, use:
+- `testDir: './tests/e2e'`
+- `timeout: 30000`
+- `retries: 2` on CI, 0 locally
+- Projects: chromium, firefox, webkit
+- `use: { baseURL: 'http://localhost:3000' }`
+
+```
+
+</details>
+
 ## In-Context Learning: Teaching with Examples
 
 > ...one of the most important and powerful things that we do is we teach through example. We show examples of good code, what we want things to look like. We don't necessarily explain every last detail of why that's beautiful code or why it's what we want, but we show lots of great examples.
