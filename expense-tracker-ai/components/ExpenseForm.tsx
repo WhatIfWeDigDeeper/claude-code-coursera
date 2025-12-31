@@ -107,6 +107,11 @@ export default function ExpenseForm({
       setFormData({ ...formData, category: trimmedName });
       setNewCategoryName('');
       setShowNewCategoryInput(false);
+    } else if (trimmedName && categories.includes(trimmedName)) {
+      // If category already exists, select it and close the input
+      setFormData({ ...formData, category: trimmedName });
+      setNewCategoryName('');
+      setShowNewCategoryInput(false);
     }
   };
 
@@ -132,13 +137,14 @@ export default function ExpenseForm({
             <input
               type="date"
               id="date"
+              data-testid="date-input"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
                 errors.date ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
               }`}
             />
-            {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date}</p>}
+            {errors.date && <p className="text-red-500 text-xs mt-1" data-testid="date-error">{errors.date}</p>}
           </div>
 
           <div>
@@ -150,6 +156,7 @@ export default function ExpenseForm({
               <input
                 type="number"
                 id="amount"
+                data-testid="amount-input"
                 step="0.01"
                 min="0"
                 value={formData.amount}
@@ -160,7 +167,7 @@ export default function ExpenseForm({
                 }`}
               />
             </div>
-            {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+            {errors.amount && <p className="text-red-500 text-xs mt-1" data-testid="amount-error">{errors.amount}</p>}
           </div>
         </div>
 
@@ -172,6 +179,7 @@ export default function ExpenseForm({
             <div className="flex gap-2">
               <input
                 type="text"
+                data-testid="new-category-input"
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
                 onKeyDown={(e) => {
@@ -189,6 +197,7 @@ export default function ExpenseForm({
               />
               <button
                 type="button"
+                data-testid="add-category-button"
                 onClick={handleAddNewCategory}
                 disabled={!newCategoryName.trim()}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -197,6 +206,7 @@ export default function ExpenseForm({
               </button>
               <button
                 type="button"
+                data-testid="cancel-category-button"
                 onClick={() => {
                   setShowNewCategoryInput(false);
                   setNewCategoryName('');
@@ -210,6 +220,7 @@ export default function ExpenseForm({
             <div className="flex gap-2">
               <select
                 id="category"
+                data-testid="category-select"
                 value={formData.category}
                 onChange={(e) => handleCategoryChange(e.target.value)}
                 className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
@@ -232,6 +243,7 @@ export default function ExpenseForm({
           <input
             type="text"
             id="description"
+            data-testid="description-input"
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             placeholder="Enter expense description"
@@ -239,12 +251,13 @@ export default function ExpenseForm({
               errors.description ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
           />
-          {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+          {errors.description && <p className="text-red-500 text-xs mt-1" data-testid="description-error">{errors.description}</p>}
         </div>
 
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
+            data-testid="submit-button"
             disabled={isSubmitting}
             className="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -253,6 +266,7 @@ export default function ExpenseForm({
           {editingExpense && (
             <button
               type="button"
+              data-testid="cancel-button"
               onClick={handleCancel}
               className="px-6 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors font-medium"
             >

@@ -117,6 +117,7 @@ export default function ExpenseList({ expenses, onDeleteExpense, onEditExpense, 
             {sortedExpenses.map((expense) => (
               <div
                 key={expense.id}
+                data-testid="expense-item"
                 className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-700"
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -143,12 +144,14 @@ export default function ExpenseList({ expenses, onDeleteExpense, onEditExpense, 
                     </div>
                     <div className="flex gap-2">
                       <button
+                        data-testid="edit-expense-button"
                         onClick={() => onEditExpense(expense)}
                         className="px-4 py-2 text-sm bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors font-medium border border-transparent dark:border-blue-800"
                       >
                         Edit
                       </button>
                       <button
+                        data-testid="delete-expense-button"
                         onClick={() => {
                           if (confirm('Are you sure you want to delete this expense?')) {
                             onDeleteExpense(expense.id);
