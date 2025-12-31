@@ -42,3 +42,7 @@
   - [Exercise: From Coffee-Stained Napkin to Production Code with Multimodal Prompting](module-7.md#exercise-from-coffee-stained-napkin-to-production-code-with-multimodal-prompting)
   - [Start By Fixing the Process & Context, Not the Code](module-7.md#start-by-fixing-the-process--context-not-the-code)
     - [Programming the AI labor](module-7.md#programming-the-ai-labor)
+
+## Additional Resources
+
+- [Writing Effective Prompts for Claude Code](writing-effective-prompts.md) - Comprehensive guide to crafting effective prompts
