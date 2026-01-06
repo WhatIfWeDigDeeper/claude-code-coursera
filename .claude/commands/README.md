@@ -2,6 +2,20 @@
 
 This directory contains reusable commands for common development tasks in this project.
 
+## Table of Contents
+
+- [Available Commands](#available-commands)
+  - [/parallel-work](#parallel-work-feature-1-feature-2-feature-3-)
+  - [/integrate-parallel-work](#integrate-parallel-work-feature-1-feature-2-feature-3-)
+  - [/npm-latest](#npm-latest-packages)
+  - [/e2e-test](#e2e-test-featurepatternall)
+  - [/document-feature](#document-feature-feature-name)
+- [How to Use Commands](#how-to-use-commands)
+- [Command Structure](#command-structure)
+- [Adding New Commands](#adding-new-commands)
+- [Tips for Effective Commands](#tips-for-effective-commands)
+- [Related Documentation](#related-documentation)
+
 ## Available Commands
 
 ### `/parallel-work [feature-1] [feature-2] [feature-3] ...`
