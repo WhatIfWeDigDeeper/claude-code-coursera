@@ -1316,7 +1316,6 @@ git branch -D skill-branch-[timestamp]
 
 echo "✅ Changes discarded, worktree removed"
 ```
-```
 
 ---
 
