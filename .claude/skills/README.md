@@ -20,6 +20,8 @@ This directory contains reusable skills for common development tasks in this pro
 
 ### `security-audit <packages>`
 
+**Location:** [security-audit/SKILL.md](security-audit/SKILL.md)
+
 Performs comprehensive security vulnerability scanning with npm audit and provides detailed categorization of issues.
 
 **What it does**:
@@ -70,6 +72,8 @@ security-audit @testing-library/*
 ---
 
 ### `add-test <component-name>`
+
+**Location:** [add-test/SKILL.md](add-test/SKILL.md)
 
 Adds comprehensive unit tests for a React component or utility function using Jest and React Testing Library.
 
@@ -122,6 +126,8 @@ add-test formatCurrency
 ---
 
 ### `add-feature <feature-name>`
+
+**Location:** [add-feature/SKILL.md](add-feature/SKILL.md)
 
 Adds a new feature with full validation in an isolated git worktree environment. Comprehensive workflow from feature creation to merge.
 
@@ -204,6 +210,8 @@ Merge changes? (yes/no/review)
 ---
 
 ### `audit-and-fix <packages>`
+
+**Location:** [audit-and-fix/SKILL.md](audit-and-fix/SKILL.md)
 
 Comprehensive security audit with automatic vulnerability fixes, parallel execution for multiple packages, and full validation.
 
@@ -290,6 +298,8 @@ Merge changes? (yes/no/review)
 ---
 
 ### `validate-markdown <file-path>`
+
+**Location:** [validate-markdown/SKILL.md](validate-markdown/SKILL.md)
 
 Validates markdown files for common formatting issues with optional auto-fix capability. Supports single files, directories, or entire repository.
 

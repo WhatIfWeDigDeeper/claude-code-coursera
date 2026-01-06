@@ -165,18 +165,26 @@ Pick a descriptive name in kebab-case that clearly describes what the skill does
 - `AddTest` - Wrong case (use kebab-case)
 - `add_test` - Wrong separator (use hyphens)
 
-### Step 2: Create the File
+### Step 2: Create the Skill Folder and File
 
-Create a new file in `.claude/skills/` with your skill name:
+Following Anthropic's recommended pattern, create a folder for your skill and a `SKILL.md` file inside it:
 
 ```bash
-touch .claude/skills/your-skill-name.md
+mkdir .claude/skills/your-skill-name
+touch .claude/skills/your-skill-name/SKILL.md
 ```
 
 For example:
 ```bash
-touch .claude/skills/add-test.md
+mkdir .claude/skills/add-test
+touch .claude/skills/add-test/SKILL.md
 ```
+
+**Why use folders?**
+- Allows you to add supporting files (templates, examples, documentation)
+- Better organization as skills grow in complexity
+- Follows Anthropic's recommended convention
+- Each skill is self-contained in its own directory
 
 ### Step 3: Write the YAML Front Matter
 
@@ -631,9 +639,9 @@ echo "✅ Found component: $ARGUMENTS"
 
 This repository includes three example skills demonstrating different complexity levels.
 
-### Example 1: `add-test.md` (Simple Skill)
+### Example 1: `add-test` (Simple Skill)
 
-**Location:** [.claude/skills/add-test.md](.claude/skills/add-test.md)
+**Location:** [.claude/skills/add-test/SKILL.md](.claude/skills/add-test/SKILL.md)
 
 **Purpose:** Add unit tests to a component or function
 
@@ -673,9 +681,9 @@ location: project
 
 ---
 
-### Example 2: `add-feature.md` (Multi-Step Skill)
+### Example 2: `add-feature` (Multi-Step Skill)
 
-**Location:** [.claude/skills/add-feature.md](.claude/skills/add-feature.md)
+**Location:** [.claude/skills/add-feature/SKILL.md](.claude/skills/add-feature/SKILL.md)
 
 **Purpose:** Add a new feature with worktree isolation and full validation
 
@@ -748,9 +756,9 @@ Merge changes back to main branch? (yes/no)
 
 ---
 
-### Example 3: `audit-and-fix.md` (Complex Skill)
+### Example 3: `audit-and-fix` (Complex Skill)
 
-**Location:** [.claude/skills/audit-and-fix.md](.claude/skills/audit-and-fix.md)
+**Location:** [.claude/skills/audit-and-fix/SKILL.md](.claude/skills/audit-and-fix/SKILL.md)
 
 **Purpose:** Run security audit and fix vulnerabilities with parallel execution
 
@@ -859,9 +867,9 @@ echo "🟢 Low: $LOW"
 
 ---
 
-### Example 4: `validate-markdown.md` (Utility Skill)
+### Example 4: `validate-markdown` (Utility Skill)
 
-**Location:** [.claude/skills/validate-markdown.md](.claude/skills/validate-markdown.md)
+**Location:** [.claude/skills/validate-markdown/SKILL.md](.claude/skills/validate-markdown/SKILL.md)
 
 **Purpose:** Validate markdown files for formatting issues with auto-fix capability
 
@@ -996,11 +1004,13 @@ See [.claude/commands/README.md](.claude/commands/README.md) for detailed docume
 
 Located in `.claude/skills/`:
 
-1. **security-audit.md** - Comprehensive security vulnerability scanning (original skill)
-2. **add-test.md** - Add unit tests to components or functions (simple example)
-3. **add-feature.md** - Add new feature with full validation (medium complexity example)
-4. **audit-and-fix.md** - Security audit with automatic fixes (complex example with parallel execution)
-5. **validate-markdown.md** - Validate and fix markdown formatting issues (utility skill example)
+1. **security-audit/** - Comprehensive security vulnerability scanning (original skill)
+2. **add-test/** - Add unit tests to components or functions (simple example)
+3. **add-feature/** - Add new feature with full validation (medium complexity example)
+4. **audit-and-fix/** - Security audit with automatic fixes (complex example with parallel execution)
+5. **validate-markdown/** - Validate and fix markdown formatting issues (utility skill example)
+
+Each skill folder contains a `SKILL.md` file with the skill definition.
 
 See [.claude/skills/README.md](.claude/skills/README.md) for detailed usage documentation and examples.
 
