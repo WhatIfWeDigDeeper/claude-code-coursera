@@ -1,6 +1,6 @@
 # Claude Skills Guide
 
-A comprehensive guide to creating custom Claude skills for enhanced workflow automation.
+A comprehensive guide to creating custom Claude skills for enhanced workflow automation. See [Summary](#summary) for tldr;
 
 ---
 
