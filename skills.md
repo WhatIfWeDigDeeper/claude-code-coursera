@@ -876,7 +876,7 @@ Understanding both approaches and when to use each.
 
 This repository contains:
 - **7 Commands** in [.claude/commands/](.claude/commands/)
-- **1 Skill** in [.claude/skills/](.claude/skills/) (security-audit)
+- **4 Skills** in [.claude/skills/](.claude/skills/)
 
 ### Commands in This Repository
 
@@ -892,11 +892,14 @@ Located in `.claude/commands/`:
 
 See [.claude/commands/README.md](.claude/commands/README.md) for detailed documentation.
 
-### Existing Skill
+### Skills in This Repository
 
 Located in `.claude/skills/`:
 
-1. **security-audit.md** - Comprehensive security vulnerability scanning
+1. **security-audit.md** - Comprehensive security vulnerability scanning (original skill)
+2. **add-test.md** - Add unit tests to components or functions (simple example)
+3. **add-feature.md** - Add new feature with full validation (medium complexity example)
+4. **audit-and-fix.md** - Security audit with automatic fixes (complex example with parallel execution)
 
 ### Command Format Example
 
