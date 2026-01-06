@@ -859,6 +859,115 @@ echo "🟢 Low: $LOW"
 
 ---
 
+### Example 4: `validate-markdown.md` (Utility Skill)
+
+**Location:** [.claude/skills/validate-markdown.md](.claude/skills/validate-markdown.md)
+
+**Purpose:** Validate markdown files for formatting issues with auto-fix capability
+
+**Complexity:** Medium-Advanced
+- Multi-scope processing (file, directory, or all)
+- Multiple validation checks
+- Auto-fix with user confirmation
+- Integration options
+- ~400 lines
+
+**Key Features:**
+```yaml
+---
+skill: validate-markdown
+description: Validate and fix markdown formatting issues: $ARGUMENTS (file path or '.' for all)
+location: project
+---
+```
+
+**Process Overview:**
+1. Determine scope (single file, directory, or all files)
+2. Check for duplicate code block markers
+3. Detect unclosed code blocks
+4. Identify common issues (tabs, long lines, trailing spaces)
+5. Generate comprehensive validation report
+6. Offer automatic fixes with user confirmation
+7. Apply fixes or provide remediation guidance
+
+**What You'll Learn:**
+- Flexible argument handling (file, directory, or all)
+- Multiple validation check patterns
+- Auto-fix with confirmation workflow
+- Integration with development workflow (pre-commit hooks, CI/CD)
+- Comprehensive reporting and guidance
+
+**Patterns Demonstrated:**
+
+**Scope Determination:**
+```bash
+if [ "$ARGUMENTS" = "." ] || [ "$ARGUMENTS" = "all" ]; then
+  # Validate all markdown files in repository
+  FILES=$(find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/plans/*")
+  echo "📊 Validating all markdown files in repository"
+elif [ -f "$ARGUMENTS" ]; then
+  # Validate specific file
+  FILES="$ARGUMENTS"
+  echo "📝 Validating: $ARGUMENTS"
+elif [ -d "$ARGUMENTS" ]; then
+  # Validate all markdown in directory
+  FILES=$(find "$ARGUMENTS" -name "*.md")
+  echo "📁 Validating markdown files in: $ARGUMENTS"
+fi
+```
+
+**Duplicate Detection Pattern:**
+```bash
+# Find consecutive ``` markers
+DUPLICATES=$(awk '/^```$/{if(prev=="```")print NR-1 "-" NR; prev="```"; next} {prev=$0}' "$file")
+
+if [ ! -z "$DUPLICATES" ]; then
+  echo "❌ $file"
+  echo "$DUPLICATES" | while read line; do
+    echo "   Lines: $line"
+  done
+fi
+```
+
+**Auto-Fix with Confirmation:**
+```markdown
+### 6. Offer to Fix Issues
+
+if [ $TOTAL_ISSUES -gt 0 ]; then
+  echo "Would you like to automatically fix these issues? (yes/no)"
+  echo ""
+  echo "What will be fixed:"
+  echo "  ✓ Remove duplicate code block markers"
+  echo "  ✓ Remove trailing whitespace"
+  echo "  ⚠️  Unclosed blocks require manual review"
+fi
+```
+
+**Comprehensive Reporting:**
+```markdown
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 VALIDATION SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Files checked: 15
+
+Issues found:
+  🔴 Duplicate code blocks: 1 files
+  🔴 Unclosed code blocks: 0 files
+  🟡 Other issues: 2 files
+
+Total files with issues: 3
+```
+
+**When to Use This Pattern:**
+- Utility skills that support development workflow
+- Tasks with flexible scope (single file vs. all files)
+- Operations offering auto-fix vs. manual guidance
+- Skills that integrate with other tools (pre-commit, CI/CD)
+- Documentation maintenance tasks
+
+---
+
 ## Skills vs Commands in This Repository
 
 Understanding both approaches and when to use each.
@@ -867,7 +976,7 @@ Understanding both approaches and when to use each.
 
 This repository contains:
 - **7 Commands** in [.claude/commands/](.claude/commands/)
-- **4 Skills** in [.claude/skills/](.claude/skills/)
+- **5 Skills** in [.claude/skills/](.claude/skills/)
 
 ### Commands in This Repository
 
@@ -891,6 +1000,9 @@ Located in `.claude/skills/`:
 2. **add-test.md** - Add unit tests to components or functions (simple example)
 3. **add-feature.md** - Add new feature with full validation (medium complexity example)
 4. **audit-and-fix.md** - Security audit with automatic fixes (complex example with parallel execution)
+5. **validate-markdown.md** - Validate and fix markdown formatting issues (utility skill example)
+
+See [.claude/skills/README.md](.claude/skills/README.md) for detailed usage documentation and examples.
 
 ### Command Format Example
 
