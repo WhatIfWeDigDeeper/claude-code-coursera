@@ -256,7 +256,6 @@ touch components/$ARGUMENTS.test.tsx
 # For utilities
 touch lib/$ARGUMENTS.test.ts
 ```
-```
 
 ### Step 6: Test Your Skill
 
@@ -385,7 +384,6 @@ ls -1 components/*.test.tsx
 # Check if specific test exists
 test -f components/ExpenseForm.test.tsx && echo "Test exists" || echo "No test found"
 ```
-```
 
 **Command best practices:**
 - Use comments to explain what each command does
@@ -416,7 +414,6 @@ describe('ComponentName', () => {
     // Test implementation
   });
 });
-```
 ```
 
 ### Add Error Handling and Edge Cases
@@ -464,7 +461,6 @@ Generate a summary report:
 - Happy path scenarios (3 tests)
 - Edge cases (3 tests)
 - Error handling (2 tests)
-```
 ```
 
 ### Reference Existing Patterns
@@ -602,7 +598,6 @@ else
   # Process one by one
 fi
 ```
-```
 
 ### Argument Validation
 
@@ -628,7 +623,6 @@ if [ ! -f "components/$ARGUMENTS.tsx" ]; then
 fi
 
 echo "✅ Found component: $ARGUMENTS"
-```
 ```
 
 ---
@@ -811,7 +805,6 @@ else
   echo "Processing sequentially"
 fi
 ```
-```
 
 **Severity Categorization:**
 ```markdown
@@ -829,7 +822,6 @@ echo "🔴 Critical: $CRITICAL"
 echo "🟠 High: $HIGH"
 echo "🟡 Moderate: $MODERATE"
 echo "🟢 Low: $LOW"
-```
 ```
 
 **Comprehensive Reporting:**
@@ -857,7 +849,6 @@ echo "🟢 Low: $LOW"
 - E2E: ✓ Passed (12/12)
 
 📁 Worktree: ../audit-fix-worktree-20250106-143022
-```
 ```
 
 **When to Use This Pattern:**
@@ -928,7 +919,6 @@ Create and execute end-to-end tests for specified features using Playwright...
 ```bash
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 ...
-```
 ```
 
 ### Skill Format Example
@@ -1212,7 +1202,6 @@ else
   done
 fi
 ```
-```
 
 **When to use parallel execution:**
 - >3 components to test
@@ -1263,7 +1252,6 @@ Generate a comprehensive summary:
 📁 Worktree: ../add-feature-worktree-20250106-143022
 
 Ready to merge to main branch.
-```
 ```
 
 ### 7. Include Cleanup Options
@@ -1370,7 +1358,6 @@ if [ $PACKAGE_COUNT -gt 3 ]; then
   # Parallel execution significantly faster than sequential
 fi
 ```
-```
 
 **Benefits:**
 - 3-5x faster for large operations
@@ -1439,7 +1426,6 @@ npm test || { echo "Test errors"; exit 1; }
 # After integration
 npm run test:e2e || { echo "E2E errors"; exit 1; }
 ```
-```
 
 **Key principles:**
 1. Plan all changes upfront
@@ -1475,7 +1461,6 @@ npm run test:e2e
 
 # Add new tests for this feature
 # Follow established patterns from existing tests
-```
 ```
 
 **Benefits:**
@@ -1529,7 +1514,6 @@ Changes ready to merge:
 - All tests passing
 
 Merge to main branch? (yes/no/review)
-```
 ```
 
 **When to prompt:**
@@ -1618,7 +1602,6 @@ Option 3: Discard and retry
   # Start fresh with different approach
 
 Choose an option:
-```
 ```
 
 **Report components:**
