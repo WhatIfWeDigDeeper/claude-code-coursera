@@ -2092,7 +2092,7 @@ git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME"
 ## Additional Resources
 
 - **Claude Code Commands:** [.claude/commands/README.md](.claude/commands/README.md) - 7 existing commands demonstrating proven patterns
-- **TARGETED Framework:** [module-4.md](module-4.md) - Framework for writing effective skills and commands
+- **TARGETED Framework:** [module-4.md](module-4.md) - Framework for writing effective commands
 - **Project Documentation:** [CLAUDE.md](CLAUDE.md) - Project-specific context and patterns
 - **Expense Tracker App:** [expense-tracker-ai/](expense-tracker-ai/) - The application used in all examples
 
