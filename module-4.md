@@ -744,7 +744,7 @@ When creating `playwright.config.ts`, use:
 
 ## Exercise: Building a Documentation Generator
 
-See [document-feature](.claude/commands/document-feature.md) command.
+See [COMMAND_DEMO.md](COMMAND_DEMO.md) and the [commands/document-feature](.claude/commands/document-feature.md) command.
 
 ---
 
