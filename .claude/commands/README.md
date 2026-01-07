@@ -243,6 +243,8 @@ Merge changes back to main branch? (yes/no)
 
 Automatically generates comprehensive documentation for a feature in both technical (developer) and user-friendly formats.
 
+> **📘 Detailed Demo**: See [COMMAND_DEMO.md](../../COMMAND_DEMO.md) for a comprehensive demonstration including examples, time savings analysis, and real-world testing results.
+
 **What it does**:
 1. Analyzes the codebase to identify all files related to the feature
 2. Detects whether it's a frontend, backend, or full-stack feature
